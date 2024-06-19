@@ -1,0 +1,15 @@
+[2024-06-19 09:33:06] local.ERROR: The "--sed" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--sed\" option does not exist. at D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\symfony\\console\\Input\\ArgvInput.php:217)
+[stacktrace]
+#0 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\symfony\\console\\Input\\ArgvInput.php(146): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption('sed', NULL)
+#1 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\symfony\\console\\Input\\ArgvInput.php(79): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption('--sed')
+#2 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\symfony\\console\\Input\\ArgvInput.php(68): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken('--sed', true)
+#3 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\symfony\\console\\Input\\Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\symfony\\console\\Command\\Command.php(238): Symfony\\Component\\Console\\Input\\Input->bind(Object(Symfony\\Component\\Console\\Input\\InputDefinition))
+#5 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(181): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#6 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\symfony\\console\\Application.php(1049): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#7 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\symfony\\console\\Application.php(318): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Migrations\\FreshCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#8 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\symfony\\console\\Application.php(169): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(196): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#10 D:\\informationSystemStuff\\laragon\\www\\laravel-sb-admin-2\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#11 {main}
+"} 
