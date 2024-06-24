@@ -23,14 +23,14 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                {{ __('Settings') }}
+                {{ __('Menu') }}
             </div>
 
             <!-- Nav Item - Profile -->
             <li class="nav-item {{ Nav::isRoute('profile') }}">
                 <a class="nav-link" href="{{ route('profile') }}">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>{{ __('Profile') }}</span>
+                    <span>{{ __('Kelola Aset') }}</span>
                 </a>
             </li>
 
@@ -38,7 +38,47 @@
             <li class="nav-item {{ Nav::isRoute('about') }}">
                 <a class="nav-link" href="{{ route('about') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
-                    <span>{{ __('About') }}</span>
+                    <span>{{ __('Kelola Kategori Aset') }}</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - About -->
+            <li class="nav-item {{ Nav::isRoute('about') }}">
+                <a class="nav-link" href="{{ route('about') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Kelola Supplier') }}</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - About -->
+            <li class="nav-item {{ Nav::isRoute('about') }}">
+                <a class="nav-link" href="{{ route('about') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Laporan Aset') }}</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                {{ __('User Manajemen') }}
+            </div>
+
+            <!-- Nav Item - User -->
+            <li class="nav-item {{ Nav::isRoute('about') }}">
+                <a class="nav-link" href="{{ route('about') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Users') }}</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Roles -->
+            <li class="nav-item {{ Nav::isRoute('about') }}">
+                <a class="nav-link" href="{{ route('about') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Roles') }}</span>
                 </a>
             </li>
 

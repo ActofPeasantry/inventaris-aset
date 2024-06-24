@@ -25,6 +25,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');
 
+Route::resource('aset', 'AsetController');
+Route::resource('supplier', 'SupplierController');
+
 Route::get('/about', function () {
     return view('about');
 })->name('about');
