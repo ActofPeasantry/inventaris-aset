@@ -26,25 +26,26 @@
                 {{ __('Menu') }}
             </div>
 
-            <!-- Nav Item - Profile -->
-            <li class="nav-item {{ Nav::isRoute('profile') }}">
-                <a class="nav-link" href="{{ route('profile') }}">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>{{ __('Kelola Aset') }}</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - About -->
-            <li class="nav-item {{ Nav::isRoute('about') }}">
-                <a class="nav-link" href="{{ route('about') }}">
+            <!-- Nav Item - Kategori Aset -->
+            <li class="nav-item {{ Nav::isRoute('kategori_aset.index') }}">
+                <a class="nav-link" href="{{ route('kategori_aset.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
                     <span>{{ __('Kelola Kategori Aset') }}</span>
                 </a>
             </li>
 
-            <!-- Nav Item - About -->
-            <li class="nav-item {{ Nav::isRoute('about') }}">
-                <a class="nav-link" href="{{ route('about') }}">
+            <!-- Nav Item - Aset -->
+            <li class="nav-item {{ Nav::isRoute('aset.index') }}">
+                <a class="nav-link" href="{{ route('aset.index') }}">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>{{ __('Kelola Aset') }}</span>
+                </a>
+            </li>
+
+
+            <!-- Nav Item - Supplier -->
+            <li class="nav-item {{ Nav::isRoute('supplier.index') }}">
+                <a class="nav-link" href="{{ route('supplier.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
                     <span>{{ __('Kelola Supplier') }}</span>
                 </a>

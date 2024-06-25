@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aset;
+use App\Models\KategoriAset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AsetController extends Controller
 {
@@ -11,7 +14,9 @@ class AsetController extends Controller
      */
     public function index()
     {
-        return view('backend.aset.index');
+        $kategori_data = KategoriAset::all();
+        $aset_data = Aset::all();
+        return view('backend.aset.index', compact('aset_data', 'kategori_data'));
     }
 
     /**
@@ -27,7 +32,17 @@ class AsetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $user_id = Auth::user()->id;
+        Aset::create([
+            'user_id' => $user_id,
+            'kode_aset' => $request->kode_aset,
+            'nama_aset' => $request->nama_aset,
+            'deskripsi_aset' => $request->deskripsi_aset,
+            'kategori_aset_id' => $request->kategori_aset_id
+        ]);
+
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -43,7 +58,8 @@ class AsetController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $aset = Aset::findOrFail($id);
+        return response()->json($aset);
     }
 
     /**
@@ -51,7 +67,8 @@ class AsetController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Aset::findOrFail($id)->update($request->all());
+        return redirect()->back()->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -59,6 +76,7 @@ class AsetController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Aset::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

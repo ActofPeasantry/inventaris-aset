@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Supplier;
 
 class SupplierController extends Controller
 {
@@ -11,7 +12,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return view('backend.supplier.index');
+        $supplier_data = Supplier::all();
+        return view('backend.supplier.index', compact('supplier_data'));
     }
 
     /**
@@ -27,7 +29,8 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Supplier::create($request->all());
+        return redirect()->back()->with('success', 'Data Berhasil ditambahkan');
     }
 
     /**
@@ -43,7 +46,8 @@ class SupplierController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+        return response()->json($supplier);
     }
 
     /**
@@ -51,7 +55,8 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Supplier::findOrFail($id)->update($request->all());
+        return redirect()->back()->with('success', 'Data Berhasil diubah');
     }
 
     /**
@@ -59,6 +64,7 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Supplier::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Data Berhasil dihapus');
     }
 }

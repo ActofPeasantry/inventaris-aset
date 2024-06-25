@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_aset');
             $table->string('deskripsi_aset');
             $table->string('kode_aset')->unique();
-            $table->integer('jumlah_aset');
+            $table->integer('jumlah_aset')->default(0);
 
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');

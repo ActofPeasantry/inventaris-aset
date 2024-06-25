@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AsetController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\KategoriAsetController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +29,12 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');
 
-Route::resource('aset', 'AsetController');
-Route::resource('supplier', 'SupplierController');
+Route::resources([
+    'aset' => AsetController::class,
+    'supplier' => SupplierController::class,
+    'kategori_aset' => KategoriAsetController::class,
+]);
+
 
 Route::get('/about', function () {
     return view('about');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriAset;
 use Illuminate\Http\Request;
 
 class KategoriAsetController extends Controller
@@ -11,7 +12,8 @@ class KategoriAsetController extends Controller
      */
     public function index()
     {
-        //
+        $kategori_data = KategoriAset::all();
+        return view('backend.kategori_aset.index', compact('kategori_data'));
     }
 
     /**
@@ -19,7 +21,6 @@ class KategoriAsetController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -27,7 +28,8 @@ class KategoriAsetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        KategoriAset::create($request->all());
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -43,7 +45,8 @@ class KategoriAsetController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $kriteria = KategoriAset::findOrFail($id);
+        return response()->json($kriteria);
     }
 
     /**
@@ -51,7 +54,8 @@ class KategoriAsetController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        KategoriAset::findOrFail($id)->update($request->all());
+        return redirect()->back()->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -59,6 +63,7 @@ class KategoriAsetController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        KategoriAset::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

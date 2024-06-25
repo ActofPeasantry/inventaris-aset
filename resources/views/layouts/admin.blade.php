@@ -24,6 +24,9 @@
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
+
+    {{-- Datatables --}}
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/datatables.min.css') }}">
 </head>
 
 <body id="page-top">
@@ -117,6 +120,8 @@
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
     {{-- Chartjs --}}
     <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js "></script>
+    {{-- Datatables --}}
+    <script src="{{ asset('vendor/datatables/datatables.min.js') }}"></script>
 
 
     {{-- Other Scripts --}}
