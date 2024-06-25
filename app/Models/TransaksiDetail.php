@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Supplier extends Model
+class TransaksiDetail extends Model
 {
     use HasFactory;
-    protected $table = 'supplier';
+    protected $table = 'transaksi_detail';
     protected $primarykey = 'id';
-    protected $fillable = ['nama_supplier', 'no_telp_supplier', 'alamat_supplier'];
+    protected $fillable = ['jumlah', 'biaya', 'transaksi_id', 'aset_id'];
 
     public function transaksi()
     {
-        return $this->hasMany(Transaksi::class);
+        return $this->belongsTo(Transaksi::class, 'transaksi_id');
     }
 }

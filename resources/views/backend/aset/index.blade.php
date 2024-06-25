@@ -25,7 +25,7 @@
                         <tr>
                             <td>{{ $aset->kode_aset }}</td>
                             <td>{{ $aset->nama_aset }}</td>
-                            <td>{{ $aset->kategori->nama_kategori }}</td>
+                            <td>{{ $aset->kategoriAset->nama_kategori }}</td>
                             <td>{{ $aset->jumlah_aset }}</td>
                             <td class="text-center">
                                 <button type="button" class='btn btn-warning edit-button' data-toggle="modal"

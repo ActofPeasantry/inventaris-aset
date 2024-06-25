@@ -15,8 +15,16 @@ class Aset extends Model
         'jumlah_aset', 'user_id', 'kategori_aset_id'
     ];
 
-    public function kategori()
+    public function kategoriAset()
     {
-        return $this->belongsTo(KategoriAset::class, 'id');
+        return $this->belongsTo(KategoriAset::class, 'kategori_aset_id', 'id');
+    }
+    public function aset_rusak()
+    {
+        return $this->hasMany(AsetRusak::class, 'aset_id');
+    }
+    public function transaksiDetail()
+    {
+        return $this->hasMany(TransaksiDetail::class, 'aset_id');
     }
 }

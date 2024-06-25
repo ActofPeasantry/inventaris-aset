@@ -6149,3 +6149,27 @@
 #61 D:\\informationSystemStuff\\laragon\\www\\ta-prima\\public\\index.php(54): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #62 {main}
 "} 
+[2024-06-25 10:47:08] local.ERROR: Command "Transaksi" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"Transaksi\" is not defined. at D:\\informationSystemStuff\\laragon\\www\\ta-prima\\vendor\\symfony\\console\\Application.php:702)
+[stacktrace]
+#0 D:\\informationSystemStuff\\laragon\\www\\ta-prima\\vendor\\symfony\\console\\Application.php(258): Symfony\\Component\\Console\\Application->find('Transaksi')
+#1 D:\\informationSystemStuff\\laragon\\www\\ta-prima\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 D:\\informationSystemStuff\\laragon\\www\\ta-prima\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(196): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 D:\\informationSystemStuff\\laragon\\www\\ta-prima\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 {main}
+"} 
+[2024-06-25 11:03:33] local.ERROR: syntax error, unexpected single-quoted string "id", expecting ")" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected single-quoted string \"id\", expecting \")\" at D:\\informationSystemStuff\\laragon\\www\\ta-prima\\app\\Models\\Aset.php:20)
+[stacktrace]
+#0 {main}
+"} 
+[2024-06-25 11:30:39] local.ERROR: syntax error, unexpected token "}", expecting "," or ";" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"}\", expecting \",\" or \";\" at D:\\informationSystemStuff\\laragon\\www\\ta-prima\\app\\Models\\Roles.php:13)
+[stacktrace]
+#0 {main}
+"} 
+[2024-06-25 11:30:46] local.ERROR: syntax error, unexpected token "protected", expecting "," or ";" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"protected\", expecting \",\" or \";\" at D:\\informationSystemStuff\\laragon\\www\\ta-prima\\app\\Models\\Roles.php:13)
+[stacktrace]
+#0 {main}
+"} 
+[2024-06-25 11:30:52] local.ERROR: syntax error, unexpected token "protected", expecting "," or ";" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"protected\", expecting \",\" or \";\" at D:\\informationSystemStuff\\laragon\\www\\ta-prima\\app\\Models\\Roles.php:13)
+[stacktrace]
+#0 {main}
+"} 

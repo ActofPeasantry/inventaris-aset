@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KategoriAset extends Model
+class AsetRusak extends Model
 {
     use HasFactory;
-    protected $table = 'kategori_aset';
+    protected $table = 'aset_rusak';
     protected $primarykey = 'id';
-    protected $fillable = ['nama_kategori', 'tipe_kategori'];
+    protected $fillable = ['jumlah_aset_rusak', 'aset_id'];
 
     public function aset()
     {
-        return $this->hasMany(Aset::class, 'aset_id', 'id');
+        return $this->belongsTo(Aset::class, 'aset_id', 'id');
     }
 }

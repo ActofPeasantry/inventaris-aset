@@ -5,12 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Supplier extends Model
+class PengesahanTransaksi extends Model
 {
     use HasFactory;
-    protected $table = 'supplier';
+    protected $table = 'pengesahan_transaksi';
     protected $primarykey = 'id';
-    protected $fillable = ['nama_supplier', 'no_telp_supplier', 'alamat_supplier'];
+    protected $fillable = ['user_id', 'status_pengesahan'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function transaksi()
     {

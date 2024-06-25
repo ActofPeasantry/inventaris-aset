@@ -38,6 +38,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function UserRoles()
+    {
+        return $this->belongsTo(UserRoles::class);
+    }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
+
+    public function pengesahanTransaksi()
+    {
+        return $this->hasMany(PengesahanTransaksi::class);
+    }
+
+    public function aset()
+    {
+        return $this->hasMany(Aset::class);
+    }
+
     /**
      * Get the user's full name.
      *
