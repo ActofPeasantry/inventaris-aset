@@ -68,8 +68,8 @@
             </div>
 
             <!-- Nav Item - About -->
-            <li class="nav-item {{ Nav::isRoute('about') }}">
-                <a class="nav-link" href="{{ route('about') }}">
+            <li class="nav-item {{ Nav::isRoute('pengajuan_aset.index') }}">
+                <a class="nav-link" href="{{ route('pengajuan_aset.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
                     <span>{{ __('Ajukan Aset') }}</span>
                 </a>
