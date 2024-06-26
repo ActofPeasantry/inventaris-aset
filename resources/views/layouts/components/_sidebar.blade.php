@@ -23,14 +23,14 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                {{ __('Menu') }}
+                {{ __('Manajemen Aset') }}
             </div>
 
             <!-- Nav Item - Kategori Aset -->
             <li class="nav-item {{ Nav::isRoute('kategori_aset.index') }}">
                 <a class="nav-link" href="{{ route('kategori_aset.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
-                    <span>{{ __('Kelola Kategori Aset') }}</span>
+                    <span>{{ __('Kategori Aset') }}</span>
                 </a>
             </li>
 
@@ -38,7 +38,7 @@
             <li class="nav-item {{ Nav::isRoute('aset.index') }}">
                 <a class="nav-link" href="{{ route('aset.index') }}">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>{{ __('Kelola Aset') }}</span>
+                    <span>{{ __('Aset') }}</span>
                 </a>
             </li>
 
@@ -47,7 +47,7 @@
             <li class="nav-item {{ Nav::isRoute('supplier.index') }}">
                 <a class="nav-link" href="{{ route('supplier.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
-                    <span>{{ __('Kelola Supplier') }}</span>
+                    <span>{{ __('Supplier') }}</span>
                 </a>
             </li>
 
@@ -58,6 +58,31 @@
                     <span>{{ __('Laporan Aset') }}</span>
                 </a>
             </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                {{ __('Pelaporan Aset') }}
+            </div>
+
+            <!-- Nav Item - About -->
+            <li class="nav-item {{ Nav::isRoute('about') }}">
+                <a class="nav-link" href="{{ route('about') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Ajukan Aset') }}</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - About -->
+            <li class="nav-item {{ Nav::isRoute('about') }}">
+                <a class="nav-link" href="{{ route('about') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Menyetujui Aset') }}</span>
+                </a>
+            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

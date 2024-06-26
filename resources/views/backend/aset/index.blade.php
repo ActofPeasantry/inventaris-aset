@@ -1,54 +1,79 @@
 @extends('layouts.admin')
 
 @section('main-content')
-    <button type="button" class="btn btn-primary modal-button mb-3" data-toggle="modal" data-target="#modal-add-aset">
+    {{-- <button type="button" class="btn btn-primary modal-button mb-3" data-toggle="modal" data-target="#modal-add-aset">
         <i class="fa fa-plus"></i> Tambah Aset</a>
-    </button>
-    <!-- Project Card Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-gray">Daftar Aset</h6>
+    </button> --}}
+
+    <h1 class="h3 mb-4 text-gray-800">{{ __('Aset') }}</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Project Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-gray">Daftar Aset</h6>
+                </div>
+                <div class="card-body">
+                    <table id="aset_table" class="table table-bordered datatable" role="grid">
+                        <thead>
+                            <tr>
+                                <th width="8%">Kode Aset</th>
+                                <th>Nama Aset</th>
+                                <th>Kategori Aset</th>
+                                <th>Deskripsi Aset</th>
+                                <th width="8%">Jumlah Aset</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($aset_data as $aset)
+                                <tr>
+                                    <td>{{ $aset->kode_aset }}</td>
+                                    <td>{{ $aset->nama_aset }}</td>
+                                    <td>{{ $aset->kategoriAset->nama_kategori }}</td>
+                                    <td>{{ $aset->deskripsi_aset }}</td>
+                                    <td>{{ $aset->jumlah_aset }}</td>
+                                    <td class="text-center">
+                                        <button type="button" class='btn btn-warning edit-button' data-toggle="modal"
+                                            data-target="#modal-edit-aset" data-id="{{ $aset->id }}">
+                                            <i class="fa fa-edit"></i></a>
+                                        </button>
+                                        <form action="{{ route('aset.destroy', [$aset->id]) }}" method="post"
+                                            style="display: inline">
+                                            {{-- Using this for now. pls change it after you implements swalert --}}
+                                            @csrf
+                                            @method('DELETE')
+                                            <button onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger"
+                                                type="submit">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            {{-- {{ method_field('DELETE') }}
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button class="btn btn-danger show_confirm" data-toggle="tooltip">Delete</button> --}}
+                                        </form>
+                                    </td </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <table id="aset_table" class="table table-bordered datatable" role="grid">
-                <thead>
-                    <tr>
-                        <th width="8%">Kode Aset</th>
-                        <th>Nama Aset</th>
-                        <th>Kategori Aset</th>
-                        <th width="8%">Jumlah Aset</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($aset_data as $aset)
-                        <tr>
-                            <td>{{ $aset->kode_aset }}</td>
-                            <td>{{ $aset->nama_aset }}</td>
-                            <td>{{ $aset->kategoriAset->nama_kategori }}</td>
-                            <td>{{ $aset->jumlah_aset }}</td>
-                            <td class="text-center">
-                                <button type="button" class='btn btn-warning edit-button' data-toggle="modal"
-                                    data-target="#modal-edit-aset" data-id="{{ $aset->id }}">
-                                    <i class="fa fa-edit"></i></a>
-                                </button>
-                                <form action="{{ route('aset.destroy', [$aset->id]) }}" method="post"
-                                    style="display: inline">
-                                    {{-- Using this for now. pls change it after you implements swalert --}}
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger"
-                                        type="submit">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    {{-- {{ method_field('DELETE') }}
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button class="btn btn-danger show_confirm" data-toggle="tooltip">Delete</button> --}}
-                                </form>
-                            </td </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-gray">Tambah Aset</h6>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('aset.store') }}" method="post">
+                        @csrf
+                        @include('backend.aset.aset_form')
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Simpan
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

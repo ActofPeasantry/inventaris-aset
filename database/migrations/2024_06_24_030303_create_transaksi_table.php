@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->enum('tujuan_transaksi', ['pengaadaan aset baru', 'pengaduan aset rusak']);
-            $table->string('invoice_transaksi');
-            $table->enum('status_transaksi', ['sedang proses', 'selesai', 'batal']);
+            $table->string('invoice_transaksi')->nullable(true);
+            $table->enum('status_transaksi', ['sedang proses', 'selesai', 'batal'])->default('sedang proses');
 
             $table->foreignId('pengesahan_id')->nullable(true)->constrained(table: 'pengesahan_transaksi')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('supplier_id')->constrained(table: 'supplier')->onDelete('cascade')->onUpdate('cascade');

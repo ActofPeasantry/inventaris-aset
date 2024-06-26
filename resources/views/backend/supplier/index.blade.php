@@ -29,7 +29,7 @@
                                     <td>{{ $supplier->alamat_supplier }}</td>
                                     <td class="text-center">
                                         <button type="button" class='btn btn-warning edit-button' data-toggle="modal"
-                                            data-target="#modal-edit-supplier" data-id="{{ $supplier->id }}">
+                                            data-target="#modal-edit-supplier" data-id="{{ $supplier->id }}" title="Edit">
                                             <i class="fa fa-edit"></i></a>
                                         </button>
                                         <form action="{{ route('supplier.destroy', [$supplier->id]) }}" method="post"
@@ -38,7 +38,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger"
-                                                type="submit">
+                                                type="submit" title="Hapus">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                             {{-- {{ method_field('DELETE') }}
