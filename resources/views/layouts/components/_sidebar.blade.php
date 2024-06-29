@@ -67,19 +67,19 @@
                 {{ __('Pelaporan Aset') }}
             </div>
 
-            <!-- Nav Item - About -->
+            <!-- Nav Item - Pengajuan Aset -->
             <li class="nav-item {{ Nav::isRoute('pengajuan_aset.index') }}">
                 <a class="nav-link" href="{{ route('pengajuan_aset.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
-                    <span>{{ __('Ajukan Aset') }}</span>
+                    <span>{{ __('Pengajuan Aset') }}</span>
                 </a>
             </li>
 
-            <!-- Nav Item - About -->
-            <li class="nav-item {{ Nav::isRoute('about') }}">
-                <a class="nav-link" href="{{ route('about') }}">
+            <!-- Nav Item - Pengesahan Aset -->
+            <li class="nav-item {{ Nav::isRoute('pengesahan_aset.index') }}">
+                <a class="nav-link" href="{{ route('pengesahan_aset.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
-                    <span>{{ __('Menyetujui Aset') }}</span>
+                    <span>{{ __('Pengesahan Aset') }}</span>
                 </a>
             </li>
 

@@ -17,7 +17,7 @@
                                 {{-- <th width="5%">No</th> --}}
                                 <th>Nama Kategori</th>
                                 <th>Tipe kategori</th>
-                                <th>Actions</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

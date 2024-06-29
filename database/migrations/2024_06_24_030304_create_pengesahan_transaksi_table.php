@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('pengesahan_transaksi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->enum('status_pengesahan', ['diterima', 'ditolak', 'revisi'])->default('diterima');
+            $table->foreignId('transaksi_id')->references('id')->on('transaksi')->onDelete('cascade')->onUpdate('cascade');
+            $table->enum('status_pengesahan', ['Disetujui', 'Ditolak', 'Revisi', 'Telah Direvisi'])->default('diterima');
             $table->timestamps();
         });
     }

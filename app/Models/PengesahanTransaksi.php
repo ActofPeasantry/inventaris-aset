@@ -10,7 +10,7 @@ class PengesahanTransaksi extends Model
     use HasFactory;
     protected $table = 'pengesahan_transaksi';
     protected $primarykey = 'id';
-    protected $fillable = ['user_id', 'status_pengesahan'];
+    protected $fillable = ['user_id', 'transaksi_id',  'status_pengesahan'];
 
     public function user()
     {
@@ -19,6 +19,6 @@ class PengesahanTransaksi extends Model
 
     public function transaksi()
     {
-        return $this->hasMany(Transaksi::class);
+        return $this->belongsTo(Transaksi::class);
     }
 }

@@ -6,8 +6,10 @@ use App\Http\Controllers\AsetController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\KategoriAsetController;
 use App\Http\Controllers\PengajuanAsetController;
+use App\Http\Controllers\PengesahanTransaksiController;
 use App\Http\Controllers\TransaksiController;
 use App\Models\Aset;
+use App\Models\PengesahanTransaksi;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +37,8 @@ Route::resources([
     'aset' => AsetController::class,
     'supplier' => SupplierController::class,
     'kategori_aset' => KategoriAsetController::class,
-    'pengajuan_aset' => PengajuanAsetController::class
+    'pengajuan_aset' => PengajuanAsetController::class,
+    'pengesahan_aset' => PengesahanTransaksiController::class,
 ]);
 
 Route::get('/order-aset-form-template', function () {

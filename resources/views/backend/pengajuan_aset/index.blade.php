@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('main-content')
-    <h1 class="h3 mb-4 text-gray-800">{{ __('Pengajuan Aset') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ __('Pengadaan Aset') }}</h1>
 
     <button type="button" class="btn btn-primary modal-button mb-3" data-toggle="modal" data-target="#modal-add-pengajuan">
         <i class="fa fa-plus"></i> Ajukan Aset</a>
@@ -9,7 +9,7 @@
     <!-- Project Card Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-gray">Pengajuan Aset</h6>
+            <h6 class="m-0 font-weight-bold text-gray">Data Pengajuan</h6>
         </div>
         <div class="card-body">
             <table id="pengajuan_aset_table" class="table table-bordered datatable" role="grid">
@@ -19,7 +19,7 @@
                         <th>Supplier</th>
                         <th>Status Pengesahan</th>
                         <th>Status Transaksi</th>
-                        <th>Actions</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,9 +27,12 @@
                         <tr>
                             <td>{{ $transaksi->tujuan_transaksi }}</td>
                             <td>{{ $transaksi->supplier->nama_supplier }}</td>
-                            @if ($transaksi->status_pengesahan == null)
+                            @if (is_null($transaksi->pengesahanTransaksi))
                                 <td>Belum Diperiksa</td>
+                            @else
+                                <td>{{ $transaksi->pengesahanTransaksi->status_pengesahan }}</td>
                             @endif
+
                             <td>{{ $transaksi->status_transaksi }}</td>
                             <td class="text-center">
                                 <button type="button" class='btn btn-warning edit-button' data-toggle="modal"

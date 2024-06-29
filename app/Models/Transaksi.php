@@ -12,7 +12,7 @@ class Transaksi extends Model
     protected $primarykey = 'id';
     protected $fillable = [
         'user_id', 'tujuan_transaksi', 'invoice_transaksi',
-        'status_transaksi', 'pengesahan_id', 'supplier_id'
+        'status_transaksi', 'supplier_id'
     ];
 
     public function user()
@@ -27,6 +27,6 @@ class Transaksi extends Model
 
     public function pengesahanTransaksi()
     {
-        return $this->belongsTo(PengesahanTransaksi::class, 'pengesahan_id', 'id');
+        return $this->hasOne(PengesahanTransaksi::class, 'transaksi_id');
     }
 }

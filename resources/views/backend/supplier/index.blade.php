@@ -18,7 +18,7 @@
                                 <th>Nama Supplier</th>
                                 <th>No. Telepon</th>
                                 <th>Alamat</th>
-                                <th>Actions</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -24,7 +24,7 @@ class PengajuanAsetController extends Controller
             'user_id' => $user_id,
             'status_transaksi' => 'sedang proses',
         ])->get();
-        // dd($supplier);
+        // dd(is_null($transaksi_data[1]->pengesahanTransaksi));
         return view('backend.pengajuan_aset.index', compact('transaksi_data', 'supplier', 'aset'));
     }
 

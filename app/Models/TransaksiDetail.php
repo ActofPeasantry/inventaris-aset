@@ -16,4 +16,8 @@ class TransaksiDetail extends Model
     {
         return $this->belongsTo(Transaksi::class, 'transaksi_id');
     }
+    public function aset()
+    {
+        return $this->belongsTo(Aset::class, 'aset_id');
+    }
 }
