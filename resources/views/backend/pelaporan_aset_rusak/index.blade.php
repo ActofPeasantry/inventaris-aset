@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('main-content')
-    <h1 class="h3 mb-4 text-gray-800">{{ __('Aset') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ __('Pelaporan Aset Rusak') }}</h1>
 
     <div class="row">
         <div class="col-md-8">
@@ -17,26 +17,24 @@
                                 <th width="8%">Kode Aset</th>
                                 <th>Nama Aset</th>
                                 <th>Kategori Aset</th>
-                                <th>Deskripsi Aset</th>
-                                <th width="8%">Jumlah Aset</th>
+                                <th width="8%">Jumlah Aset Rusak</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($aset_data as $aset)
+                            @foreach ($aset_rusak_data as $aset_rusak)
                                 <tr>
-                                    <td>{{ $aset->kode_aset }}</td>
-                                    <td>{{ $aset->nama_aset }}</td>
-                                    <td>{{ $aset->kategoriAset->nama_kategori }}</td>
-                                    <td>{{ $aset->deskripsi_aset }}</td>
-                                    <td>{{ $aset->jumlah_aset }}</td>
+                                    <td>{{ $aset_rusak->aset->kode_aset }}</td>
+                                    <td>{{ $aset_rusak->aset->nama_aset }}</td>
+                                    <td>{{ $aset_rusak->aset->kategoriAset->nama_kategori }}</td>
+                                    <td>{{ $aset_rusak->jumlah_aset_rusak }}</td>
                                     <td class="text-center">
                                         <button type="button" class='btn btn-warning edit-button' data-toggle="modal"
-                                            data-target="#modal-edit-aset" data-id="{{ $aset->id }}">
+                                            data-target="#modal-edit-aset-rusak" data-id="{{ $aset_rusak->id }}">
                                             <i class="fa fa-edit"></i></a>
                                         </button>
-                                        <form action="{{ route('aset.destroy', [$aset->id]) }}" method="post"
-                                            style="display: inline">
+                                        <form action="{{ route('pelaporan_aset_rusak.destroy', [$aset_rusak->id]) }}"
+                                            method="post" style="display: inline">
                                             {{-- Using this for now. pls change it after you implements swalert --}}
                                             @csrf
                                             @method('DELETE')
@@ -55,17 +53,15 @@
                 </div>
             </div>
         </div>
-
-        {{-- Tambah Aset --}}
         <div class="col-md-4">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-gray">Tambah Aset</h6>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('aset.store') }}" method="post">
+                    <form action="{{ route('pelaporan_aset_rusak.store') }}" method="post">
                         @csrf
-                        @include('backend.aset.aset_form')
+                        @include('backend.pelaporan_aset_rusak.aset_rusak_form')
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Simpan
                         </button>
@@ -75,10 +71,11 @@
         </div>
     </div>
 
+
     {{-- Edit Modal --}}
-    @if (count($aset_data) > 0)
-        <div id="modal-edit-aset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
-            aria-hidden="true">
+    @if (count($aset_rusak_data) > 0)
+        <div id="modal-edit-aset-rusak" class="modal fade" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -87,11 +84,11 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="aset-update-form" action="" method="post">
+                    <form id="aset-rusak-update-form" action="" method="post">
                         @csrf
                         @method('PATCH')
                         <div class="modal-body">
-                            @include('backend.aset.aset_form')
+                            @include('backend.pelaporan_aset_rusak.aset_rusak_form')
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -120,25 +117,53 @@
         })
     </script>
 
+    {{-- Edit Modal --}}
     <script>
-        $(document).ready(function() {
-            $('.edit-button').on('click', function() {
-                var id = $(this).data('id');
-                $.ajax({
-                    url: '/aset/' + id + '/edit',
-                    type: 'GET',
-                    success: function(data) {
-                        // console.log(data);
-                        $('#modal-edit-aset #nama_aset').val(data.nama_aset);
-                        $('#modal-edit-aset #deskripsi_aset').val(data.deskripsi_aset);
-                        $('#modal-edit-aset #kode_aset').val(data.kode_aset);
-                        $('#modal-edit-aset #kategori_aset_id').val(data.kategori_aset_id);
-                        // Update the form action with the new ID
-                        $('#aset-update-form').attr('action', '/aset/' + id);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching data:', error);
-                    }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.edit-button').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var id = button.getAttribute('data-id');
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', '/pelaporan_aset_rusak/' + id + '/edit', true);
+
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                var data = JSON.parse(xhr.responseText);
+                                console.log(data);
+
+                                // Set the selected option for aset_id
+                                let asetSelect = document.querySelector(
+                                    '#modal-edit-aset-rusak #aset_id'
+                                );
+                                asetSelect.querySelectorAll('option').forEach(option => {
+                                    if (option.value == data.aset_id) {
+                                        option.selected = true;
+                                    } else {
+                                        option.selected = false;
+                                    }
+                                });
+                                // put jumlah_aset_rusak value based on id
+                                document.querySelector(
+                                        '#modal-edit-aset-rusak #jumlah_aset_rusak').value =
+                                    data.jumlah_aset_rusak;
+
+                                // put jumlah_aset_rusak to old_jumlah_aset_rusak
+                                document.querySelector(
+                                        '#modal-edit-aset-rusak #old_jumlah_aset_rusak').value =
+                                    data.jumlah_aset_rusak;
+
+
+
+                                document.querySelector('#aset-rusak-update-form').setAttribute(
+                                    'action', '/pelaporan_aset_rusak/' + id);
+                            } else {
+                                console.error('Error fetching data:', xhr.statusText);
+                            }
+                        }
+                    };
+
+                    xhr.send();
                 });
             });
         });

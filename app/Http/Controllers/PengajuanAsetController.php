@@ -66,7 +66,20 @@ class PengajuanAsetController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Fetch the transaksi details and eager load the associated aset data
+        $detail_data = TransaksiDetail::where('transaksi_id', $id)->with('aset')->get();
+
+        // Transform the data to include asset names directly in the response
+        $data = $detail_data->map(function ($detail) {
+            return [
+                'id' => $detail->id,
+                'jumlah' => $detail->jumlah,
+                'biaya' => $detail->biaya,
+                'nama_aset' => $detail->aset->nama_aset,
+            ];
+        });
+
+        return response()->json($data);
     }
 
     /**
@@ -74,9 +87,10 @@ class PengajuanAsetController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Fetch the transaksi details and eager load the associated aset data
+        $data = Transaksi::where('id', $id)->get();
+        return response()->json($data);
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -90,6 +104,31 @@ class PengajuanAsetController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Transaksi::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Data Berhasil dihapus');
+    }
+
+    public function uploadInvoice(Request $request)
+    {
+        $transaksi = Transaksi::findOrFail($request->transaksi_id);
+
+        $aset_data = new Aset();
+        $transaksi_detail_data = TransaksiDetail::where('transaksi_id', $request->transaksi_id)->get();
+        // dd($transaksi_detail_data[0]);
+
+        if ($request->hasFile('invoice')) {
+            $path = $request->file('invoice')->store('invoices', 'public');
+            $transaksi->invoice_transaksi = '../../storage/' . $path;
+            $transaksi->status_transaksi = 'Selesai';
+            $transaksi->save();
+
+            foreach ($transaksi_detail_data as $transaksi_detail) {
+                $aset_data = Aset::where('id', $transaksi_detail->aset_id)->first();
+                $aset_data->jumlah_aset = $aset_data->jumlah_aset + $transaksi_detail->jumlah;
+                $aset_data->save();
+            }
+        }
+
+        return redirect()->back()->with('success', 'Data Berhasil diubah');
     }
 }

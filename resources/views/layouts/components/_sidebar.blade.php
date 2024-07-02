@@ -75,6 +75,14 @@
                 </a>
             </li>
 
+            <!-- Nav Item - Pelaporan Aset Rusak -->
+            <li class="nav-item {{ Nav::isRoute('pelaporan_aset_rusak.index') }}">
+                <a class="nav-link" href="{{ route('pelaporan_aset_rusak.index') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('Pelaporan Aset Rusak') }}</span>
+                </a>
+            </li>
+
             <!-- Nav Item - Pengesahan Aset -->
             <li class="nav-item {{ Nav::isRoute('pengesahan_aset.index') }}">
                 <a class="nav-link" href="{{ route('pengesahan_aset.index') }}">

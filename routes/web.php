@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AsetController;
+use App\Http\Controllers\AsetRusakController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\KategoriAsetController;
 use App\Http\Controllers\PengajuanAsetController;
@@ -39,7 +40,9 @@ Route::resources([
     'kategori_aset' => KategoriAsetController::class,
     'pengajuan_aset' => PengajuanAsetController::class,
     'pengesahan_aset' => PengesahanTransaksiController::class,
+    'pelaporan_aset_rusak' => AsetRusakController::class,
 ]);
+Route::post('pengajuan_aset/upload_invoice/', [PengajuanAsetController::class, 'uploadInvoice'])->name('pengajuan_aset.upload_invoice');
 
 Route::get('/order-aset-form-template', function () {
     $index = request('index');

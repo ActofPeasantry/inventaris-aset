@@ -1,8 +1,8 @@
 <div class="form-group mb-3">
     <label class="form-label" for="tujuan_transaksi">Tujuan Transaksi</label>
     <select class="form-control" name="tujuan_transaksi" id="tujuan_transaksi">
-        <option value="aset tetap">Pengadaan aset baru</option>
-        <option value="aset tetap">Pengaduan aset rusak</option>
+        <option value="pengaadaan aset baru">Pengadaan Aset Baru</option>
+        <option value="pengaduan aset rusak" selected>Pengaduan Aset Rusak</option>
     </select>
 </div>
 

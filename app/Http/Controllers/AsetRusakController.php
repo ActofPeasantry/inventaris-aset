@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aset;
+use App\Models\AsetRusak;
 use Illuminate\Http\Request;
 
 class AsetRusakController extends Controller
@@ -11,7 +13,9 @@ class AsetRusakController extends Controller
      */
     public function index()
     {
-        //
+        $aset_data = Aset::where('jumlah_aset', '>', '0')->get();
+        $aset_rusak_data = AsetRusak::all();
+        return view('backend.pelaporan_aset_rusak.index', compact('aset_rusak_data', 'aset_data'));
     }
 
     /**
@@ -27,7 +31,14 @@ class AsetRusakController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $aset_rusak = AsetRusak::create($request->all());
+
+        $aset_data = Aset::where('id', $aset_rusak->aset_id)->first();
+        $aset_data->jumlah_aset = $aset_data->jumlah_aset - $aset_rusak->jumlah_aset_rusak;
+        $aset_data->save();
+
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -43,7 +54,8 @@ class AsetRusakController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = AsetRusak::find($id);
+        return response()->json($data);
     }
 
     /**
@@ -51,7 +63,17 @@ class AsetRusakController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request->all());
+        $aset_rusak = AsetRusak::findorFail($id);
+        $aset_rusak->jumlah_aset_rusak = $request->input('jumlah_aset_rusak');
+        $aset_rusak->save();
+
+        $subtracted_jumlah_aset = $request->input('jumlah_aset_rusak') - $request->input('old_jumlah_aset_rusak');
+        $aset_data = Aset::where('id', $aset_rusak->aset_id)->first();
+        $aset_data->jumlah_aset = $aset_data->jumlah_aset - $subtracted_jumlah_aset;
+        $aset_data->save();
+
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -59,6 +81,14 @@ class AsetRusakController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $aset_rusak = AsetRusak::findorFail($id);
+        $aset_data = Aset::where('id', $aset_rusak->aset_id)->first();
+
+        $aset_data->jumlah_aset = $aset_data->jumlah_aset + $aset_rusak->jumlah_aset_rusak;
+        $aset_data->save();
+
+        $aset_rusak->delete();
+
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }
