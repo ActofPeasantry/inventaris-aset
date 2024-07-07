@@ -153,7 +153,10 @@
                                         '#modal-edit-aset-rusak #old_jumlah_aset_rusak').value =
                                     data.jumlah_aset_rusak;
 
-
+                                // put aset_id to old_aset_id
+                                document.querySelector(
+                                        '#modal-edit-aset-rusak #old_aset_id').value =
+                                    data.aset_id;
 
                                 document.querySelector('#aset-rusak-update-form').setAttribute(
                                     'action', '/pelaporan_aset_rusak/' + id);

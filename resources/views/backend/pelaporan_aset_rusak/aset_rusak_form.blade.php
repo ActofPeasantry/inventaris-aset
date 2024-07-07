@@ -7,6 +7,7 @@
     </select>
 </div>
 
+
 <div class="form-group col-mb-3">
     <label class="form-label" for="jumlah_aset_rusak">Jumlah Aset Rusak</label>
     <input id="jumlah_aset_rusak" type="text" class="form-control" name="jumlah_aset_rusak" value="" required
@@ -14,3 +15,4 @@
 </div>
 
 <input type="hidden" id="old_jumlah_aset_rusak" name="old_jumlah_aset_rusak" value="">
+<input type="hidden" id="old_aset_id" name="old_aset_id" value="">

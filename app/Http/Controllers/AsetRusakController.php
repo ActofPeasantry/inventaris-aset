@@ -63,15 +63,29 @@ class AsetRusakController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         // dd($request->all());
         $aset_rusak = AsetRusak::findorFail($id);
+        if ($request->aset_id  == $aset_rusak->aset_id) {
+            //subtract aset data based on sum with old_jumlah_aset_rusak
+            $subtracted_jumlah_aset = $request->input('jumlah_aset_rusak') - $request->input('old_jumlah_aset_rusak');
+            $aset_data = Aset::where('id', $aset_rusak->aset_id)->first();
+            $aset_data->jumlah_aset = $aset_data->jumlah_aset - $subtracted_jumlah_aset;
+            $aset_data->save();
+        } else {
+            //restore previous aset data
+            $old_aset_data = Aset::where('id', $request->old_aset_id)->first();
+            $old_aset_data->jumlah_aset = $old_aset_data->jumlah_aset + $request->input('jumlah_aset_rusak');
+            $old_aset_data->save();
+            //subtract current aset data
+            $aset_data = Aset::where('id', $request->aset_id)->first();
+            $aset_data->jumlah_aset = $aset_data->jumlah_aset - $request->input('jumlah_aset_rusak');
+            $aset_data->save();
+        }
+        // Update the AsetRusak model
+        $aset_rusak->aset_id = $request->input('aset_id');
         $aset_rusak->jumlah_aset_rusak = $request->input('jumlah_aset_rusak');
         $aset_rusak->save();
-
-        $subtracted_jumlah_aset = $request->input('jumlah_aset_rusak') - $request->input('old_jumlah_aset_rusak');
-        $aset_data = Aset::where('id', $aset_rusak->aset_id)->first();
-        $aset_data->jumlah_aset = $aset_data->jumlah_aset - $subtracted_jumlah_aset;
-        $aset_data->save();
 
         return redirect()->back()->with('success', 'Data berhasil ditambahkan');
     }
