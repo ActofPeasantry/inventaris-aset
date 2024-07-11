@@ -42,6 +42,7 @@ Route::resources([
     'pengesahan_aset' => PengesahanTransaksiController::class,
     'pelaporan_aset_rusak' => AsetRusakController::class,
 ]);
+Route::post('pengajuan_aset/update_order/', [PengajuanAsetController::class, 'updateOrder'])->name('pengajuan_aset.update_order');
 Route::post('pengajuan_aset/upload_invoice/', [PengajuanAsetController::class, 'uploadInvoice'])->name('pengajuan_aset.upload_invoice');
 
 Route::get('/order-aset-form-template', function () {

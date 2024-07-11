@@ -3,7 +3,8 @@
 @section('main-content')
     <h1 class="h3 mb-4 text-gray-800">{{ __('Pengadaan Aset') }}</h1>
 
-    <button type="button" class="btn btn-primary modal-button mb-3" data-toggle="modal" data-target="#modal-add-pengajuan">
+    <button type="button" class="btn btn-primary modal-button mb-3 create-button" data-toggle="modal"
+        data-target="#modal-add-pengajuan">
         <i class="fa fa-plus"></i> Ajukan Aset</a>
     </button>
     <!-- Project Card Example -->
@@ -131,8 +132,15 @@
                     <div class="modal-body">
                         @include('backend.pengajuan_aset.pengajuan_aset_form')
                         <br>
-                        <a id="modal-add-aset" name="modal-add-aset" class="btn btn-secondary mb-2">Tambah Order</a>
-                        <div id="aset-container"></div>
+                        <a id="create-modal-add-aset" name="create-modal-add-aset" class="btn btn-secondary mb-2">Tambah
+                            Order</a>
+                        <a id="create-modal-remove-aset" name="create-modal-remove-aset"
+                            class="btn btn-danger
+                             mb-2">Hapus Order
+                        </a>
+
+                        {{-- Aset Container --}}
+                        <div id="create-modal-aset-container"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -155,14 +163,20 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="pengajuan-edit-form" method="post">
+                <form id="pengajuan-edit-form" action="{{ route('pengajuan_aset.update_order') }}" method="post">
                     @csrf
-                    @method('PUT')
                     <div class="modal-body">
                         @include('backend.pengajuan_aset.pengajuan_aset_form')
+                        <input type="hidden" name="transaksi_id" id="transaksi_id" value="">
                         <br>
-                        <a id="modal-edit-aset" name="modal-edit-aset" class="btn btn-secondary mb-2">Tambah Order</a>
-                        <div id="aset-container"></div>
+                        <a id="edit-modal-add-aset" name="edit-modal-add-aset" class="btn btn-secondary mb-2">Tambah
+                            Order</a>
+                        <a id="edit-modal-remove-aset" name="edit-modal-remove-aset"
+                            class="btn btn-danger
+                             mb-2">Hapus Order
+                        </a>
+                        {{-- Aset Container --}}
+                        <div id="edit-modal-aset-container"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -222,156 +236,17 @@
         })
     </script>
 
-    {{-- Tambah order button script --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let asetIndex = 0;
-
-            document.getElementById('modal-add-aset').addEventListener('click', function() {
-                fetch(`{{ url('/order-aset-form-template') }}?index=${asetIndex}`)
-                    .then(response => response.text())
-                    .then(html => {
-                        // Designate cloned form placement
-                        let asetContainer = document.getElementById('aset-container');
-                        // Get all the fields from the url
-                        let newAsetForm = document.createElement('div');
-                        newAsetForm.innerHTML = html;
-                        // Append the cloned form to the container
-                        asetContainer.appendChild(newAsetForm);
-                        asetIndex++;
-                    })
-                    .catch(error => console.log('Error:', error));
-            });
-        });
+        var orderAsetFormTemplateUrl = "{{ url('/order-aset-form-template') }}";
     </script>
-
+    {{-- Add and remove aset button in create modal --}}
+    <script src="{{ asset('js/pages/pengajuan_aset/create_modal.js') }}"></script>
     {{-- Edit Modal --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let asetIndex = 0;
-
-            // Event listener for adding new aset form
-            document.getElementById('modal-edit-aset').addEventListener('click', function() {
-                fetch(`{{ url('/order-aset-form-template') }}?index=${asetIndex}`)
-                    .then(response => response.text())
-                    .then(html => {
-                        let asetContainer = document.getElementById('aset-container');
-                        let newAsetForm = document.createElement('div');
-                        newAsetForm.innerHTML = html;
-                        asetContainer.appendChild(newAsetForm);
-                        asetIndex++;
-                    })
-                    .catch(error => console.log('Error:', error));
-            });
-
-            // Event listener for showing edit modal with prefilled data
-            document.querySelectorAll('.edit-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    var id = button.getAttribute('data-id');
-                    console.log('Edit ID:', id);
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('GET', '/pengajuan_aset/' + id + '/edit', true);
-
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4) {
-                            if (xhr.status === 200) {
-                                var data = JSON.parse(xhr.responseText);
-                                console.log('Fetched data:', data[0]);
-
-                                // Select the correct option for tujuan_transaksi
-                                let tujuanTransaksiSelect = document.querySelector(
-                                    '#modal-edit-pengajuan #tujuan_transaksi');
-                                tujuanTransaksiSelect.querySelectorAll('option')
-                                    .forEach(option => {
-                                        if (option.value === data[0].tujuan_transaksi) {
-                                            option.selected = true;
-                                        } else {
-                                            option.selected = false;
-                                        }
-                                    });
-
-                                // Select the correct option for supplier_id
-                                let supplierIdSelect = document.querySelector(
-                                    '#modal-edit-pengajuan #supplier_id');
-                                supplierIdSelect.querySelectorAll('option')
-                                    .forEach(option => {
-                                        if (option.value === data[0].supplier_id) {
-                                            option.selected = true;
-                                        } else {
-                                            option.selected = false;
-                                        }
-                                    });
-
-                                // Update form action with the record ID
-                                document.getElementById('pengajuan-edit-form').action =
-                                    `/pengajuan_aset/${id}`;
-
-                                // Show the modal
-                                $('#modal-edit-pengajuan').modal('show');
-
-                            } else {
-                                console.error('Error fetching data:', xhr.statusText);
-                            }
-                        }
-                    };
-                    xhr.send();
-                });
-            });
-        });
-    </script>
-
+    <script src="{{ asset('js/pages/pengajuan_aset/edit_modal.js') }}"></script>
     {{-- Show Modal --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.show-button').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var id = button.getAttribute('data-id');
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('GET', '/pengajuan_aset/' + id, true);
-
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4) {
-                            if (xhr.status === 200) {
-                                var data = JSON.parse(xhr.responseText);
-                                // console.log(data);
-                                updateTable(data); //Call function to update table
-                            } else {
-                                console.error('Error fetching data:', xhr.statusText);
-                            }
-                        }
-                    };
-                    xhr.send();
-                });
-            });
-        });
-
-        function updateTable(data) {
-            var tableBody = document.querySelector('.show-modal-table tbody');
-            tableBody.innerHTML = ''; //Clear table body
-
-            data.forEach((item) => {
-                var row = document.createElement('tr');
-
-                // Create and append cells for 'nama_aset'
-                var cellNamaAset = document.createElement('td');
-                cellNamaAset.textContent = item.nama_aset;
-                row.appendChild(cellNamaAset);
-
-                // Create and append cells for 'jumlah'
-                var cellJumlah = document.createElement('td');
-                cellJumlah.textContent = item.jumlah;
-                row.appendChild(cellJumlah);
-
-                // Create and append cells for 'biaya'
-                var cellBiaya = document.createElement('td');
-                cellBiaya.textContent = item.biaya;
-                row.appendChild(cellBiaya);
-
-                // Append row to table body
-                tableBody.appendChild(row);
-            })
-        }
-    </script>
+    <script src="{{ asset('js/pages/pengajuan_aset/show_modal.js') }}"></script>
+    {{-- Intialize above scripts --}}
+    <script src="{{ asset('js/pages/init.js') }}"></script>
 
     {{-- Invoice Modal  --}}
     <script>
@@ -379,11 +254,11 @@
             document.querySelectorAll('.invoice-button').forEach(button => {
                 button.addEventListener('click', function() {
                     var id = button.getAttribute('data-id');
-                    console.log('Invoice ID:', id);
+                    // console.log('Invoice ID:', id);
                     var transaksiInput = document.querySelector(
                         '#modal-upload-invoice #transaksi_id');
                     transaksiInput.value = id;
-                    console.log('Set transaksi_id to:', transaksiInput.value);
+                    // console.log('Set transaksi_id to:', transaksiInput.value);
                 });
             });
         });

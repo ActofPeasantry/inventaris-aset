@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aset;
+use App\Models\PengesahanTransaksi;
 use App\Models\Supplier;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
@@ -88,7 +89,13 @@ class PengajuanAsetController extends Controller
     public function edit(string $id)
     {
         // Fetch the transaksi details and eager load the associated aset data
-        $data = Transaksi::where('id', $id)->get();
+        $transaksi_data = Transaksi::where('id', $id)->get();
+        $detail_data = TransaksiDetail::where('transaksi_id', $id)->with('aset')->get();
+
+        $data = [
+            'transaksi_data' => $transaksi_data,
+            'detail_data' => $detail_data
+        ];
         return response()->json($data);
     }
     /**
@@ -129,6 +136,57 @@ class PengajuanAsetController extends Controller
             }
         }
 
+        return redirect()->back()->with('success', 'Data Berhasil diubah');
+    }
+
+    public function updateOrder(Request $request)
+    {
+        // Your input array
+        $input = $request->all();
+
+        // Initialize the array to hold the details
+        $transDetails = [];
+        // Loop through the input array
+        foreach ($input as $key => $value) {
+            if (preg_match('/^aset_id-(\d+)$/', $key, $matches)) {
+                $index = $matches[1];
+                $transDetails[$index]['aset_id'] = $value;
+            }
+            if (preg_match('/^jumlah-(\d+)$/', $key, $matches)) {
+                $index = $matches[1];
+                $transDetails[$index]['jumlah'] = $value;
+            }
+            if (preg_match('/^harga-(\d+)$/', $key, $matches)) {
+                $index = $matches[1];
+                $transDetails[$index]['harga'] = $value;
+            }
+        }
+        // Reindex array to start from 0
+        $transDetails = array_values($transDetails);
+
+        // Update Transaksi and PengesahanTransaksi
+        $transaksi = Transaksi::findOrFail($request->transaksi_id);
+        $transaksi->update([
+            'tujuan_transaksi' => $request->tujuan_transaksi,
+            'supplier_id' => $request->supplier_id
+        ]);
+        $pengesahan = PengesahanTransaksi::where('transaksi_id', $request->transaksi_id);
+        $pengesahan->update([
+            'status_pengesahan' => "Telah Direvisi"
+        ]);
+
+        // Delete Current Transaksi Details. Im too lazy to check each transaksiDetail and update them :P
+        TransaksiDetail::where('transaksi_id', $request->transaksi_id)->delete();
+        foreach ($transDetails as $detail) {
+            TransaksiDetail::create([
+                'transaksi_id' => $request->transaksi_id,
+                'aset_id' => $detail['aset_id'],
+                'jumlah' => $detail['jumlah'],
+                'biaya' => $detail['harga']
+            ]);
+        }
+
+        // dd([$transDetails, $input]);
         return redirect()->back()->with('success', 'Data Berhasil diubah');
     }
 }
