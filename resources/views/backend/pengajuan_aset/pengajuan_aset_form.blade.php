@@ -2,7 +2,7 @@
     <label class="form-label" for="tujuan_transaksi">Tujuan Transaksi</label>
     <select class="form-control" name="tujuan_transaksi" id="tujuan_transaksi">
         <option value="pengaadaan aset baru">Pengadaan Aset Baru</option>
-        <option value="pengaduan aset rusak" selected>Pengaduan Aset Rusak</option>
+        <option value="pengaduan aset rusak">Pengaduan Aset Rusak</option>
     </select>
 </div>
 

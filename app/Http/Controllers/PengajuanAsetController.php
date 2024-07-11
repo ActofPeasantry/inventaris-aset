@@ -68,6 +68,7 @@ class PengajuanAsetController extends Controller
         $user_id = Auth::user()->id;
         $transaksi = Transaksi::create([
             'user_id' => $user_id,
+            'tujuan_transaksi' => $request->tujuan_transaksi,
             'supplier_id' => $request->supplier_id,
         ]);
 
