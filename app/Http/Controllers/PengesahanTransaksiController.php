@@ -7,6 +7,7 @@ use App\Models\Aset;
 use App\Models\Supplier;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +20,10 @@ class PengesahanTransaksiController extends Controller
     {
         $supplier = Supplier::pluck('nama_supplier', 'id');
         $aset = Aset::pluck('nama_aset', 'id');
-        $transaksi_data =  Transaksi::doesntHave('pengesahanTransaksi')->get();
+        $transaksi_data = Transaksi::whereDoesntHave('pengesahanTransaksi')
+            ->orWhereHas('pengesahanTransaksi', function (Builder $query) {
+                $query->where('status_pengesahan', 'Telah Direvisi');
+            })->get();
         // dd($supplier);
         return view('backend.pengesahan_aset.index', compact('transaksi_data', 'supplier', 'aset'));
     }

@@ -42,20 +42,41 @@ class PengajuanAsetController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->input('aset'));
+
+        // Your input array
+        $input = $request->all();
+        // Initialize the array to hold the details
+        $transDetails = [];
+        // Loop through the input array
+        foreach ($input as $key => $value) {
+            if (preg_match('/^aset_id-(\d+)$/', $key, $matches)) {
+                $index = $matches[1];
+                $transDetails[$index]['aset_id'] = $value;
+            }
+            if (preg_match('/^jumlah-(\d+)$/', $key, $matches)) {
+                $index = $matches[1];
+                $transDetails[$index]['jumlah'] = $value;
+            }
+            if (preg_match('/^harga-(\d+)$/', $key, $matches)) {
+                $index = $matches[1];
+                $transDetails[$index]['harga'] = $value;
+            }
+        }
+        // Reindex array to start from 0
+        $transDetails = array_values($transDetails);
 
         $user_id = Auth::user()->id;
         $transaksi = Transaksi::create([
             'user_id' => $user_id,
             'supplier_id' => $request->supplier_id,
         ]);
-        $asets = $request->input('aset');
-        foreach ($asets as $aset) {
+
+        foreach ($transDetails as $detail) {
             TransaksiDetail::create([
                 'transaksi_id' => $transaksi->id,
-                'aset_id' => $aset['aset_id'],
-                'jumlah' => $aset['jumlah'],
-                'biaya' => $aset['harga']
+                'aset_id' => $detail['aset_id'],
+                'jumlah' => $detail['jumlah'],
+                'biaya' => $detail['harga'],
             ]);
         }
 
