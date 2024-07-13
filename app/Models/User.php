@@ -38,10 +38,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function UserRoles()
+    public function userRoles()
     {
-        return $this->belongsTo(UserRoles::class);
+        return $this->hasMany(UserRole::class, 'user_id');
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
 
     public function transaksi()
     {
@@ -60,18 +66,42 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's full name.
-     *
-     * @return string
+     * Check if user has a role.
+     * @var int
+     * @return bool
      */
-    public function getFullNameAttribute()
+    public function hasAnyRole($role)
     {
-        if (is_null($this->last_name)) {
-            return "{$this->name}";
-        }
-
-        return "{$this->name} {$this->last_name}";
+        return null !== $this->userRoles()->where('role_id', $role)->first();
     }
+    public function isAdmin()
+    {
+        return $this->hasAnyRole(UserRole::ADMIN);
+    }
+    public function isKepalaDinas()
+    {
+        return $this->hasAnyRole(UserRole::KEPALA_DINAS);
+    }
+    public function isPegawai()
+    {
+        return $this->hasAnyRole(UserRole::PEGAWAI);
+    }
+
+
+
+    // /**
+    //  * Get the user's full name.
+    //  *
+    //  * @return string
+    //  */
+    // public function getFullNameAttribute()
+    // {
+    //     if (is_null($this->last_name)) {
+    //         return "{$this->name}";
+    //     }
+
+    //     return "{$this->name} {$this->last_name}";
+    // }
 
     /**
      * Set the user's password.

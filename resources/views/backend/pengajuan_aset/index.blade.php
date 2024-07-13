@@ -236,6 +236,7 @@
         })
     </script>
 
+    {{-- All scripts for this page is on public/js/pages/pengajuan_aset --}}
     <script>
         var orderAsetFormTemplateUrl = "{{ url('/order-aset-form-template') }}";
     </script>

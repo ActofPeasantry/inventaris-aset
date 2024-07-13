@@ -48,7 +48,8 @@
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <button class="btn btn-danger show_confirm" data-toggle="tooltip">Delete</button> --}}
                                         </form>
-                                    </td </tr>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

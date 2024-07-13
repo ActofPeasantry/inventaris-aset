@@ -97,12 +97,12 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                {{ __('User Manajemen') }}
+                {{ __('Manajemen User') }}
             </div>
 
             <!-- Nav Item - User -->
-            <li class="nav-item {{ Nav::isRoute('about') }}">
-                <a class="nav-link" href="{{ route('about') }}">
+            <li class="nav-item {{ Nav::isRoute('user_role.index') }}">
+                <a class="nav-link" href="{{ route('user_role.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
                     <span>{{ __('Users') }}</span>
                 </a>

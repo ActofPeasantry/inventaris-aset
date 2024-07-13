@@ -9,6 +9,7 @@ use App\Http\Controllers\KategoriAsetController;
 use App\Http\Controllers\PengajuanAsetController;
 use App\Http\Controllers\PengesahanTransaksiController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UserRoleController;
 use App\Models\Aset;
 use App\Models\PengesahanTransaksi;
 
@@ -23,11 +24,11 @@ use App\Models\PengesahanTransaksi;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('auth.login');
+});
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -41,6 +42,7 @@ Route::resources([
     'pengajuan_aset' => PengajuanAsetController::class,
     'pengesahan_aset' => PengesahanTransaksiController::class,
     'pelaporan_aset_rusak' => AsetRusakController::class,
+    'user_role' => UserRoleController::class,
 ]);
 Route::post('pengajuan_aset/update_order/', [PengajuanAsetController::class, 'updateOrder'])->name('pengajuan_aset.update_order');
 Route::post('pengajuan_aset/upload_invoice/', [PengajuanAsetController::class, 'uploadInvoice'])->name('pengajuan_aset.upload_invoice');
