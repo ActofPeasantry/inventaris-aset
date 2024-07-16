@@ -28,24 +28,37 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-// Auth::routes();
+Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');
 
-Route::resources([
-    'aset' => AsetController::class,
-    'supplier' => SupplierController::class,
-    'kategori_aset' => KategoriAsetController::class,
-    'pengajuan_aset' => PengajuanAsetController::class,
-    'pengesahan_aset' => PengesahanTransaksiController::class,
-    'pelaporan_aset_rusak' => AsetRusakController::class,
-    'user_role' => UserRoleController::class,
-]);
-Route::post('pengajuan_aset/update_order/', [PengajuanAsetController::class, 'updateOrder'])->name('pengajuan_aset.update_order');
-Route::post('pengajuan_aset/upload_invoice/', [PengajuanAsetController::class, 'uploadInvoice'])->name('pengajuan_aset.upload_invoice');
+Route::middleware(['auth', 'auth.admin'])->group(function () {
+    Route::resources([
+        'user_role' => UserRoleController::class,
+    ]);
+});
+
+Route::middleware(['auth', 'auth.adminOrKepalaDinas'])->group(function () {
+    Route::resources([
+        'kategori_aset' => KategoriAsetController::class,
+        'aset' => AsetController::class,
+        'supplier' => SupplierController::class,
+        'pengesahan_aset' => PengesahanTransaksiController::class,
+    ]);
+});
+
+Route::middleware(['auth', 'auth.pegawai'])->group(function () {
+    Route::resources([
+        'pengajuan_aset' => PengajuanAsetController::class,
+        'pelaporan_aset_rusak' => AsetRusakController::class,
+    ]);
+    Route::post('pengajuan_aset/update_order/', [PengajuanAsetController::class, 'updateOrder'])->name('pengajuan_aset.update_order');
+    Route::post('pengajuan_aset/upload_invoice/', [PengajuanAsetController::class, 'uploadInvoice'])->name('pengajuan_aset.upload_invoice');
+});
+
 
 Route::get('/order-aset-form-template', function () {
     $index = request('index');

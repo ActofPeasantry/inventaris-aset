@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('main-content')
-    <h1 class="h3 mb-4 text-gray-800">{{ __('Pengesahan Aset') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ __('Review Aset') }}</h1>
 
 
     <!-- Project Card Example -->

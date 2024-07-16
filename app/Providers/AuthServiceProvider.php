@@ -26,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('access-admin', fn (User $user) => $user->isAdmin());
         Gate::define('access-kepala-dinas', fn (User $user) => $user->isKepalaDinas());
-        Gate::define('access-sekre', fn (User $user) => $user->isPegawai());
+        Gate::define('access-pegawai', fn (User $user) => $user->isPegawai());
+
+        Gate::define('access-admin-or-kepala-dinas', fn (User $user) => $user->isAdmin() || $user->isKepalaDinas());
     }
 }
