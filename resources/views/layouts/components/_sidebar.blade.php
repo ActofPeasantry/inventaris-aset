@@ -45,10 +45,10 @@
             </div>
 
             <!-- Nav Item - About -->
-            <li class="nav-item ">
-                <a class="nav-link" href="">
+            <li class="nav-item {{ Nav::isRoute('laporan_transaksi.index') }} ">
+                <a class="nav-link" href="{{ route('laporan_transaksi.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
-                    <span>{{ __('Laporan Aset') }}</span>
+                    <span>{{ __('Laporan Transaksi') }}</span>
                 </a>
             </li>
 
