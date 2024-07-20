@@ -21,7 +21,6 @@
                         <th>Status Pengesahan</th>
                         <th>Status Transaksi</th>
                         <th>Aksi</th>
-                        <th>Upload Invoice</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,36 +44,21 @@
                                         data-target="#modal-edit-pengajuan" data-id="{{ $transaksi->id }}">
                                         <i class="fa fa-edit"></i></a>
                                     </button>
+                                    <form action="{{ route('pengajuan_aset.destroy', [$transaksi->id]) }}" method="post"
+                                        style="display: inline">
+                                        {{-- Using this for now. pls change it after you implements swalert --}}
+                                        @csrf
+                                        @method('DELETE')
+                                        <button onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger"
+                                            type="submit">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        {{-- {{ method_field('DELETE') }}
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <button class="btn btn-danger show_confirm" data-toggle="tooltip">Delete</button> --}}
+                                    </form>
                                 @endif
 
-                                <form action="{{ route('pengajuan_aset.destroy', [$transaksi->id]) }}" method="post"
-                                    style="display: inline">
-                                    {{-- Using this for now. pls change it after you implements swalert --}}
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Apakah anda yakin?')" class="btn btn-danger"
-                                        type="submit">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                    {{-- {{ method_field('DELETE') }}
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <button class="btn btn-danger show_confirm" data-toggle="tooltip">Delete</button> --}}
-                                </form>
-                            </td>
-                            <td class="text-center">
-                                @if (!is_null($transaksi->pengesahanTransaksi) && $transaksi->pengesahanTransaksi->status_pengesahan == 'Disetujui')
-                                    <button type="button" class='btn btn-success invoice-button mr-3' data-toggle="modal"
-                                        data-target="#modal-upload-invoice" data-id="{{ $transaksi->id }}">
-                                        <i class="fa fa-file"></i>
-                                        Upload Invoice
-                                    </button>
-                                @else
-                                    <button type="button" class='btn btn-success invoice-button mr-3' data-toggle="modal"
-                                        data-target="#modal-upload-invoice" data-id="{{ $transaksi->id }}" disabled>
-                                        <i class="fa fa-file"></i>
-                                        Upload Invoice
-                                    </button>
-                                @endif
                             </td>
                         </tr>
                     @endforeach

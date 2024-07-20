@@ -20,11 +20,11 @@ class PengarsipanTransaksiController extends Controller
     {
         $supplier = Supplier::pluck('nama_supplier', 'id');
         $aset = Aset::pluck('nama_aset', 'id');
-        $transaksi_data = Transaksi::WhereHas('pengesahanTransaksi', function (Builder $query) {
+        $transaksi_data = Transaksi::where('status_transaksi', 'Selesai')->whereNull('invoice_transaksi')->WhereHas('pengesahanTransaksi', function (Builder $query) {
             $query->where('status_pengesahan', 'Disetujui')->whereNotNull('surat_pengesahan');
         })->get();
         // dd($supplier);
-        return view('backend.pengesahan_aset.index', compact('transaksi_data', 'supplier', 'aset'));
+        return view('backend.pengarsipan_aset.index', compact('transaksi_data', 'supplier', 'aset'));
     }
 
     /**
@@ -40,11 +40,14 @@ class PengarsipanTransaksiController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         if ($request->hasFile('invoice_transaksi')) {
             $path = $request->file('invoice_transaksi')->store('invoices', 'public');
             foreach ($request->checked_transaksi_id as $transaksi_id) {
-                $getTransaksi = Transaksi::find($transaksi_id)->first();
+                $getTransaksi = Transaksi::find($transaksi_id);
                 $getTransaksi->invoice_transaksi = '../../storage/' . $path;
+                $getTransaksi->tgl_transaksi = $request->tgl_transaksi;
+                $getTransaksi->status_transaksi = 'Selesai';
                 $getTransaksi->save();
             }
         }
@@ -57,7 +60,19 @@ class PengarsipanTransaksiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $detail_data = TransaksiDetail::where('transaksi_id', $id)->with('aset')->get();
+
+        // Transform the data to include asset names directly in the response
+        $data = $detail_data->map(function ($detail) {
+            return [
+                'id' => $detail->id,
+                'jumlah' => $detail->jumlah,
+                'biaya' => $detail->biaya,
+                'nama_aset' => $detail->aset->nama_aset,
+            ];
+        });
+
+        return response()->json($data);
     }
 
     /**

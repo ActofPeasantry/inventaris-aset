@@ -121,7 +121,22 @@
             @endcanany
 
             @can('access-admin')
+                <!-- Nav Item - Pengarsipan Transaksi -->
+                <li class="nav-item {{ Nav::isRoute('pengarsipan_transaksi.index') }}">
+                    <a class="nav-link" href="{{ route('pengarsipan_transaksi.index') }}">
+                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <span>{{ __('Pengarsipan Aset') }}</span>
+                    </a>
+                </li>
             @endcan
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                {{ __('Kepala Bidang') }}
+            </div>
 
             @can('access-kepala-dinas')
                 <!-- Nav Item - Pengesahan Transaksi -->
@@ -133,7 +148,6 @@
                 </li>
             @endcan
 
-            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->

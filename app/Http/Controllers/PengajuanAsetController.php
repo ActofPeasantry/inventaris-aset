@@ -23,7 +23,6 @@ class PengajuanAsetController extends Controller
         $aset = Aset::pluck('nama_aset', 'id');
         $transaksi_data =  Transaksi::where([
             'user_id' => $user_id,
-            'status_transaksi' => 'sedang proses',
         ])->get();
         // dd(is_null($transaksi_data[1]->pengesahanTransaksi));
         return view('backend.pengajuan_aset.index', compact('transaksi_data', 'supplier', 'aset'));

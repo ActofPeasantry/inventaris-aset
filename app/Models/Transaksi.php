@@ -11,8 +11,12 @@ class Transaksi extends Model
     protected $table = 'transaksi';
     protected $primarykey = 'id';
     protected $fillable = [
-        'user_id', 'tujuan_transaksi', 'invoice_transaksi',
-        'status_transaksi', 'supplier_id'
+        'user_id', 'tujuan_transaksi', 'tgl_transaksi',
+        'invoice_transaksi', 'status_transaksi', 'supplier_id'
+    ];
+
+    protected $casts = [
+        'tgl_transaksi' => 'date'
     ];
 
     /**
