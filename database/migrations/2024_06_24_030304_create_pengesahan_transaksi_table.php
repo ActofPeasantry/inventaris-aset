@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('transaksi_id')->references('id')->on('transaksi')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('status_pengesahan', ['Disetujui', 'Ditolak', 'Revisi', 'Telah Direvisi'])->default('diterima');
+            $table->string('surat_pengesahan')->nullable(true);
+            $table->enum('status_pengesahan', ['Disetujui', 'Ditolak', 'Revisi', 'Telah Direvisi'])->default('Disetujui');
             $table->timestamps();
         });
     }

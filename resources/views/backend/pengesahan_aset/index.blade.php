@@ -1,80 +1,76 @@
 @extends('layouts.admin')
 
 @section('main-content')
-    <h1 class="h3 mb-4 text-gray-800">{{ __('Review Aset') }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ __('Pengesahan Aset') }}</h1>
 
 
     <!-- Project Card Example -->
-    <form action="{{ route('pengesahan_aset.store') }}" method="post">
-        @csrf
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-gray">Aset yang Diajukan</h6>
-            </div>
-            <div class="card-body">
-                <table id="pengesahan_aset_table" class="table table-bordered datatable" role="grid">
-                    <thead>
-                        <tr>
-                            <th width="5%">Ceklis</th>
-                            <th>Nama Pengaju</th>
-                            <th>Tujuan Transaksi</th>
-                            <th>Supplier</th>
-                            <th>Status Pengesahan</th>
-                            <th>Status Transaksi</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <div class="" id="checkbox-list">
-                            @foreach ($transaksi_data as $transaksi)
-                                <tr>
-                                    <td class="text-center">
-                                        <input class="transaksi_check" type="checkbox" name="transaksi_check[]"
-                                            id="transaksi_check_{{ $transaksi->id }}" value="{{ $transaksi->id }}">
-                                    </td>
-                                    <td>{{ $transaksi->user->name }}</td>
-                                    <td>{{ $transaksi->tujuan_transaksi }}</td>
-                                    <td>{{ $transaksi->supplier->nama_supplier }}</td>
-                                    @if (is_null($transaksi->pengesahanTransaksi))
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-gray">Aset yang Diajukan</h6>
+        </div>
+        <div class="card-body">
+            <table id="pengesahan_transaksi_table" class="table table-bordered datatable" role="grid">
+                <thead>
+                    <tr>
+                        <th width="5%">Ceklis</th>
+                        <th>Nama Pengaju</th>
+                        <th>Tujuan Transaksi</th>
+                        <th>Supplier</th>
+                        {{-- <th>Status Pengesahan</th> --}}
+                        {{-- <th>Status Transaksi</th> --}}
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <div class="" id="checkbox-list">
+                        @foreach ($transaksi_data as $transaksi)
+                            <tr>
+                                <td class="text-center">
+                                    <input class="transaksi_check" type="checkbox" name="transaksi_check[]"
+                                        id="transaksi_check_{{ $transaksi->id }}" value="{{ $transaksi->id }}">
+                                </td>
+                                <td>{{ $transaksi->user->name }}</td>
+                                <td>{{ $transaksi->tujuan_transaksi }}</td>
+                                <td>{{ $transaksi->supplier->nama_supplier }}</td>
+                                {{-- @if (is_null($transaksi->pengesahanTransaksi))
                                         <td>Belum Diperiksa</td>
                                     @else
                                         <td>{{ $transaksi->pengesahanTransaksi->status_pengesahan }}</td>
-                                    @endif
-                                    <td>{{ $transaksi->status_transaksi }}</td>
-                                    <td class="text-center">
-                                        <button type="button" class='btn btn-info show-button' data-toggle="modal"
-                                            data-target="#modal-show-pengesahan-aset" data-id="{{ $transaksi->id }}">
-                                            <i class="fa fa-circle-info mr-1"></i>
-                                            Detail
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </div>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-2 mt-1 ml-1">
-                        <input type="checkbox" id="all_transaksi" name="all_transaksi">
-                        <label for="all_transaksi">Ceklis Seluruh Data</label>
+                                    @endif --}}
+                                {{-- <td>{{ $transaksi->status_transaksi }}</td> --}}
+                                <td class="text-center">
+                                    <button type="button" class='btn btn-info show-button' data-toggle="modal"
+                                        data-target="#modal-show-pengesahan-aset" data-id="{{ $transaksi->id }}">
+                                        <i class="fa fa-circle-info mr-1"></i>
+                                        Detail
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
                     </div>
-                    <div class="col-8">
-                        <button id="accept_button" class="btn btn-success check_all_button show_accept" type="submit"
-                            disabled>Terima data diceklis</button>
-                        <button id="revise_button" class="btn btn-warning check_all_button show_revise" type="submit"
-                            disabled>Revisi data diceklis</button>
-                        <button id="deny_button" class="btn btn-danger check_all_button show_deny" type="submit"
-                            disabled>Tolak data diceklis</button>
-                        <input type="hidden" id="check_value" name="check_value" value="">
-                    </div>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-2 mt-1 ml-1">
+                    <input type="checkbox" id="all_transaksi" name="all_transaksi">
+                    <label for="all_transaksi">Ceklis Seluruh Data</label>
+                </div>
+                <div class="col-8">
+                    <button type="button" class='btn btn-info check-modal-button' data-toggle="modal"
+                        data-target="#modal-upload-surat-pengesahan">
+                        Upload Surat Pengesahan
+                    </button>
+                    {{-- <button id="accept_button" class="btn btn-success check_all_button show_accept" type="submit"
+                            disabled>Sahkan data diceklis</button>
+                        <input type="hidden" id="check_value" name="check_value" value=""> --}}
                 </div>
             </div>
         </div>
-    </form>
+    </div>
 @endsection
-
 {{-- Detail Modal --}}
 <div id="modal-show-pengesahan-aset" class="modal fade" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -107,6 +103,38 @@
     </div>
 </div>
 
+{{-- Check Modal --}}
+<div id="modal-upload-surat-pengesahan" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Upload Surat Pengesahan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('pengesahan_transaksi.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="surat_pengesahan" class="form-label">Upload Surat Pengesahan</label>
+                        <input class="form-control" type="file" name="surat_pengesahan" id="surat_pengesahan">
+                    </div>
+                    <div class="checked-id-list">
+                        {{-- Populated with javascript below --}}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 @push('child-scripts')
     {{-- put value to status_pengesahan --}}
     <script>
@@ -118,7 +146,7 @@
         });
         document.querySelector('.show_revise').addEventListener('click', function() {
             document.getElementById('check_value').value = 'Revisi';
-        });
+        })
     </script>
 
     {{-- Checkbox Mechanism --}}
@@ -174,6 +202,29 @@
         });
     </script>
 
+    {{-- Upload Surat Pengesahan --}}
+    <script>
+        document.querySelectorAll('.check-modal-button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const checkedCheckboxes = document.querySelectorAll('input.transaksi_check:checked');
+                const checkedArray = Array.from(checkedCheckboxes);
+
+                const checkedForm = document.querySelector('.checked-id-list')
+                checkedForm.innerHTML = '';
+                checkedArray.forEach(checkbox => {
+                    console.log('checked data :', checkbox.value);
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'checked_transaksi_id[]';
+                    hiddenInput.value = checkbox.value;
+
+                    // Append the hidden input to the form or container
+                    checkedForm.appendChild(hiddenInput);
+                })
+            });
+        })
+    </script>
+
     {{-- Show Modal --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -181,7 +232,7 @@
                 button.addEventListener('click', function() {
                     var id = button.getAttribute('data-id');
                     var xhr = new XMLHttpRequest();
-                    xhr.open('GET', '/pengesahan_aset/' + id, true);
+                    xhr.open('GET', '/pengesahan_transaksi/' + id, true);
 
                     xhr.onreadystatechange = function() {
                         if (xhr.readyState === 4) {

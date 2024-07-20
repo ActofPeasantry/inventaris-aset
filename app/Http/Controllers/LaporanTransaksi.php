@@ -30,8 +30,12 @@ class LaporanTransaksi extends Controller
 
         $selected_month = 0;
         $selected_purpose = 0;
+        $selected_trans_purpose = 0;
 
-        return view('backend.laporan_transaksi.index', compact('transaksi_data', 'years', 'selected_year', 'selected_month', 'selected_purpose'));
+        return view(
+            'backend.laporan_transaksi.index',
+            compact('transaksi_data', 'years', 'selected_year', 'selected_month', 'selected_trans_purpose')
+        );
     }
 
     /**
@@ -111,6 +115,9 @@ class LaporanTransaksi extends Controller
 
         // dd([$selected_trans_purpose, $selected_month, $selected_year,]);
         // dd($transaksi_data);
-        return view('backend.laporan_transaksi.index', compact('transaksi_data', 'years', 'selected_year', 'selected_month', 'selected_trans_purpose'));
+        return view(
+            'backend.laporan_transaksi.index',
+            compact('transaksi_data', 'years', 'selected_year', 'selected_month', 'selected_trans_purpose')
+        );
     }
 }

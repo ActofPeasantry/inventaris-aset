@@ -20,10 +20,9 @@ class PengesahanTransaksiController extends Controller
     {
         $supplier = Supplier::pluck('nama_supplier', 'id');
         $aset = Aset::pluck('nama_aset', 'id');
-        $transaksi_data = Transaksi::whereDoesntHave('pengesahanTransaksi')
-            ->orWhereHas('pengesahanTransaksi', function (Builder $query) {
-                $query->where('status_pengesahan', 'Telah Direvisi');
-            })->get();
+        $transaksi_data = Transaksi::WhereHas('pengesahanTransaksi', function (Builder $query) {
+            $query->where('status_pengesahan', 'Disetujui')->whereNull('surat_pengesahan');
+        })->get();
         // dd($supplier);
         return view('backend.pengesahan_aset.index', compact('transaksi_data', 'supplier', 'aset'));
     }
@@ -41,33 +40,16 @@ class PengesahanTransaksiController extends Controller
      */
     public function store(Request $request)
     {
-
-        // Loop all the checked transaksis
-        foreach ($request->transaksi_check as $value) {
-            // Check if the transaksi is already in the database
-            $exist = PengesahanTransaksi::where('transaksi_id', $value)->exists();
-            if (!$exist) {
-                // If the transaksi is not in the database, create a new record
-                PengesahanTransaksi::create([
-                    'user_id' => Auth::user()->id,
-                    'transaksi_id' => $value,
-                    'status_pengesahan' => $request->check_value
-                ]);
-
-                // Update the status of the transaksi to "Ditolak" if $request->check_value is "Ditolak"
-                if ($request->check_value == 'Ditolak') {
-                    Transaksi::find($value)->update([
-                        'status_transaksi' => 'Batal',
-                    ]);
-                }
-            } else {
-                // If the transaksi is already in the database, update the status
-                PengesahanTransaksi::where('transaksi_id', $value)->update([
-                    'user_id' => Auth::user()->id,
-                    'status_pengesahan' => $request->check_value
-                ]);
+        // dd($request->checked_transaksi_id);
+        if ($request->hasFile('surat_pengesahan')) {
+            $path = $request->file('surat_pengesahan')->store('surat_pengesahan', 'public');
+            foreach ($request->checked_transaksi_id as $transaksi_id) {
+                $getPengesahan = PengesahanTransaksi::where('transaksi_id', $transaksi_id)->first();
+                $getPengesahan->surat_pengesahan = '../../storage/' . $path;
+                $getPengesahan->save();
             }
         }
+
         return redirect()->back()->with('success', 'Proses pengesahan berhasil dilakukan');
     }
 

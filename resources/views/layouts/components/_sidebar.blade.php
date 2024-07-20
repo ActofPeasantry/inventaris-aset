@@ -111,14 +111,27 @@
             @endcan
 
             @canany(['access-admin', 'access-kepala-dinas'])
-                <!-- Nav Item - Pengesahan Aset -->
-                <li class="nav-item {{ Nav::isRoute('pengesahan_aset.index') }}">
-                    <a class="nav-link" href="{{ route('pengesahan_aset.index') }}">
+                <!-- Nav Item - Review Transaksi -->
+                <li class="nav-item {{ Nav::isRoute('review_transaksi.index') }}">
+                    <a class="nav-link" href="{{ route('review_transaksi.index') }}">
                         <i class="fas fa-fw fa-hands-helping"></i>
                         <span>{{ __('Review Aset') }}</span>
                     </a>
                 </li>
             @endcanany
+
+            @can('access-admin')
+            @endcan
+
+            @can('access-kepala-dinas')
+                <!-- Nav Item - Pengesahan Transaksi -->
+                <li class="nav-item {{ Nav::isRoute('pengesahan_transaksi.index') }}">
+                    <a class="nav-link" href="{{ route('pengesahan_transaksi.index') }}">
+                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <span>{{ __('Pengesahan Aset') }}</span>
+                    </a>
+                </li>
+            @endcan
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

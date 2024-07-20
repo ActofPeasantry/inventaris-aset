@@ -8,7 +8,9 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\KategoriAsetController;
 use App\Http\Controllers\LaporanTransaksi;
 use App\Http\Controllers\PengajuanAsetController;
+use App\Http\Controllers\PengarsipanTransaksiController;
 use App\Http\Controllers\PengesahanTransaksiController;
+use App\Http\Controllers\ReviewTransaksiController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserRoleController;
 use App\Models\Aset;
@@ -47,15 +49,6 @@ Route::middleware(['auth', 'auth.admin'])->group(function () {
     ]);
 });
 
-Route::middleware(['auth', 'auth.adminOrKepalaDinas'])->group(function () {
-    Route::resources([
-        'kategori_aset' => KategoriAsetController::class,
-        'aset' => AsetController::class,
-        'supplier' => SupplierController::class,
-        'pengesahan_aset' => PengesahanTransaksiController::class,
-    ]);
-});
-
 Route::middleware(['auth', 'auth.pegawai'])->group(function () {
     Route::resources([
         'pengajuan_aset' => PengajuanAsetController::class,
@@ -64,6 +57,23 @@ Route::middleware(['auth', 'auth.pegawai'])->group(function () {
     Route::post('pengajuan_aset/update_order/', [PengajuanAsetController::class, 'updateOrder'])->name('pengajuan_aset.update_order');
     Route::post('pengajuan_aset/upload_invoice/', [PengajuanAsetController::class, 'uploadInvoice'])->name('pengajuan_aset.upload_invoice');
 });
+
+Route::middleware(['auth', 'auth.kepalaDinas'])->group(function () {
+    Route::resources([
+        'pengesahan_transaksi' => PengesahanTransaksiController::class,
+    ]);
+});
+
+Route::middleware(['auth', 'auth.adminOrKepalaDinas'])->group(function () {
+    Route::resources([
+        'kategori_aset' => KategoriAsetController::class,
+        'aset' => AsetController::class,
+        'supplier' => SupplierController::class,
+        'review_transaksi' => ReviewTransaksiController::class,
+        'pengarsipan_transaksi' => PengarsipanTransaksiController::class,
+    ]);
+});
+
 
 
 Route::get('/order-aset-form-template', function () {

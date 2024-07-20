@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->enum('tujuan_transaksi', ['pengadaan aset baru', 'pengaduan aset rusak']);
+            $table->datetime('tgl_transaksi')->nullable(true);
             $table->string('invoice_transaksi')->nullable(true);
             $table->enum('status_transaksi', ['Sedang Proses', 'Selesai', 'Batal'])->default('sedang proses');
 

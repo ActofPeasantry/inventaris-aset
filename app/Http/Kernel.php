@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'auth.admin' => \App\Http\Middleware\AccessAdmin::class,
-        'auth.kepaladinas' => \App\Http\Middleware\AccessKepalaDinas::class,
+        'auth.kepalaDinas' => \App\Http\Middleware\AccessKepalaDinas::class,
         'auth.pegawai' => \App\Http\Middleware\AccessPegawai::class,
         'auth.adminOrKepalaDinas' => \App\Http\Middleware\AccessAdminOrKepalaDinas::class,
     ];
