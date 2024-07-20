@@ -6,62 +6,65 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-gray">Aset yang Diajukan</h6>
         </div>
-        <div class="card-body">
-            <table id="pengarsipan_transaksi_table" class="table table-bordered datatable" role="grid">
-                <thead>
-                    <tr>
-                        <th width="5%">Ceklis</th>
-                        <th>Nama Pengaju</th>
-                        <th>Tujuan Transaksi</th>
-                        <th>Supplier</th>
-                        <th>Surat Pengesahan</th>
-                        {{-- <th>Status Pengesahan</th> --}}
-                        {{-- <th>Status Transaksi</th> --}}
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <div class="" id="checkbox-list">
-                        @foreach ($transaksi_data as $transaksi)
-                            <tr>
-                                <td class="text-center">
-                                    <input class="transaksi_check" type="checkbox" name="transaksi_check[]"
-                                        id="transaksi_check_{{ $transaksi->id }}" value="{{ $transaksi->id }}">
-                                </td>
-                                <td>{{ $transaksi->user->name }}</td>
-                                <td>{{ $transaksi->tujuan_transaksi }}</td>
-                                <td>{{ $transaksi->supplier->nama_supplier }}</td>
-                                <td>Download</td>
-                                <td class="text-center">
-                                    <button type="button" class='btn btn-info show-button' data-toggle="modal"
-                                        data-target="#modal-show-pengarsipan-aset" data-id="{{ $transaksi->id }}">
-                                        <i class="fa fa-circle-info mr-1"></i>
-                                        Detail
-                                    </button>
-                                </td>
-                            </tr>
-                        @endforeach
+        <form action="{{ route('pengarsipan_transaksi.deny') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="card-body">
+                <table id="pengarsipan_transaksi_table" class="table table-bordered datatable" role="grid">
+                    <thead>
+                        <tr>
+                            <th width="5%">Ceklis</th>
+                            <th>Nama Pengaju</th>
+                            <th>Tujuan Transaksi</th>
+                            <th>Supplier</th>
+                            <th>Surat Pengesahan</th>
+                            {{-- <th>Status Pengesahan</th> --}}
+                            {{-- <th>Status Transaksi</th> --}}
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div class="" id="checkbox-list">
+                            @foreach ($transaksi_data as $transaksi)
+                                <tr>
+                                    <td class="text-center">
+                                        <input class="transaksi_check" type="checkbox" name="transaksi_check[]"
+                                            id="transaksi_check_{{ $transaksi->id }}" value="{{ $transaksi->id }}">
+                                    </td>
+                                    <td>{{ $transaksi->user->name }}</td>
+                                    <td>{{ $transaksi->tujuan_transaksi }}</td>
+                                    <td>{{ $transaksi->supplier->nama_supplier }}</td>
+                                    <td>Download</td>
+                                    <td class="text-center">
+                                        <button type="button" class='btn btn-info show-button' data-toggle="modal"
+                                            data-target="#modal-show-pengarsipan-aset" data-id="{{ $transaksi->id }}">
+                                            <i class="fa fa-circle-info mr-1"></i>
+                                            Detail
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-2 mt-1 ml-1">
+                        <input type="checkbox" id="all_transaksi" name="all_transaksi">
+                        <label for="all_transaksi">Ceklis Seluruh Data</label>
                     </div>
-                </tbody>
-            </table>
-        </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-2 mt-1 ml-1">
-                    <input type="checkbox" id="all_transaksi" name="all_transaksi">
-                    <label for="all_transaksi">Ceklis Seluruh Data</label>
-                </div>
-                <div class="col-8">
-                    <button type="button" class='btn btn-info check-modal-button' data-toggle="modal"
-                        data-target="#modal-upload-surat-pengarsipan">
-                        Upload Invoice
-                    </button>
-                    <button id="accept_button" class="btn btn-danger check_all_button show_accept" type="submit"
-                        disabled>Tolak data diceklis</button>
-                    <input type="hidden" id="check_value" name="check_value" value="">
+                    <div class="col-8">
+                        <button type="button" class='btn btn-info check-modal-button' data-toggle="modal"
+                            data-target="#modal-upload-surat-pengarsipan">
+                            Upload Invoice
+                        </button>
+                        <button id="accept_button" class="btn btn-danger check_all_button show_deny" type="submit"
+                            disabled>Tolak data diceklis</button>
+                        <input type="hidden" id="check_value" name="check_value" value="">
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 @endsection
 
@@ -136,15 +139,9 @@
 @push('child-scripts')
     {{-- put value to status_pengesahan --}}
     <script>
-        document.querySelector('.show_accept').addEventListener('click', function() {
-            document.getElementById('check_value').value = 'Disetujui';
-        });
         document.querySelector('.show_deny').addEventListener('click', function() {
-            document.getElementById('check_value').value = 'Ditolak';
+            document.getElementById('check_value').value = 'Batal';
         });
-        document.querySelector('.show_revise').addEventListener('click', function() {
-            document.getElementById('check_value').value = 'Revisi';
-        })
     </script>
 
     {{-- Checkbox Mechanism --}}

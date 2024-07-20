@@ -72,6 +72,7 @@ Route::middleware(['auth', 'auth.adminOrKepalaDinas'])->group(function () {
         'review_transaksi' => ReviewTransaksiController::class,
         'pengarsipan_transaksi' => PengarsipanTransaksiController::class,
     ]);
+    Route::post('pengarsipan_transaksi/deny', [PengarsipanTransaksiController::class, 'deny'])->name('pengarsipan_transaksi.deny');
 });
 
 

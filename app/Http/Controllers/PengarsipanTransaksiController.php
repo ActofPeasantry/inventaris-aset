@@ -20,7 +20,7 @@ class PengarsipanTransaksiController extends Controller
     {
         $supplier = Supplier::pluck('nama_supplier', 'id');
         $aset = Aset::pluck('nama_aset', 'id');
-        $transaksi_data = Transaksi::where('status_transaksi', 'Selesai')->whereNull('invoice_transaksi')->WhereHas('pengesahanTransaksi', function (Builder $query) {
+        $transaksi_data = Transaksi::where('status_transaksi', 'Sedang Proses')->whereNull('invoice_transaksi')->WhereHas('pengesahanTransaksi', function (Builder $query) {
             $query->where('status_pengesahan', 'Disetujui')->whereNotNull('surat_pengesahan');
         })->get();
         // dd($supplier);
@@ -97,5 +97,17 @@ class PengarsipanTransaksiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function deny(Request $request)
+    {
+        // dd($request->all());
+        foreach ($request->transaksi_check as $transaksi_id) {
+            $getTransaksi = Transaksi::find($transaksi_id);
+            $getTransaksi->status_transaksi = $request->check_value;
+            $getTransaksi->save();
+        }
+        return redirect()->back()->with('danger', 'Data berhasil ditolak');
     }
 }
