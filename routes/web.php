@@ -38,6 +38,7 @@ Route::put('/profile', 'ProfileController@update')->name('profile.update');
 
 Route::middleware('auth')->group(function () {
     route::resource('laporan_transaksi', LaporanTransaksi::class);
+    Route::post('/laporan_transaksi/search', [LaporanTransaksi::class, 'search'])->name('laporan_transaksi.search');
 });
 
 Route::middleware(['auth', 'auth.admin'])->group(function () {

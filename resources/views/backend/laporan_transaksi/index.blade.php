@@ -5,54 +5,64 @@
         <div class="card-body">
             <div class="text-center mt-5">
                 <div class="form-group">
-                    <div class="row">
-                        <h5 class="col-1 mt-1 ml-3">Pilih Data</h5>
-                        <div class="col-3">
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Tujuan Transaksi</span>
+                    <form action="{{ route('laporan_transaksi.search') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <h5 class="col-1 mt-1 ml-3">Pilih Data</h5>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Tujuan Transaksi</span>
+                                    </div>
+                                    <select class="form-control" name="tujuan_transaksi" id="tujuan_transaksi">
+                                        @foreach (transPurposeArray() as $value => $purpose_name)
+                                            <option value="{{ $value }}"
+                                                {{ $selected_trans_purpose == $value ? 'selected' : '' }}>
+                                                {{ $purpose_name }}
+                                            </option>
+                                        @endforeach
+                                        {{-- <option value="0">--Semua Tujuan--</option>
+                                        <option value="pengaadaan aset baru">Pengadaan Aset Baru</option>
+                                        <option value="pengaduan aset rusak">Pengaduan Aset Rusak</option> --}}
+                                    </select>
                                 </div>
-                                <select class="form-control" name="tujuan_transaksi" id="tujuan_transaksi">
-                                    <option value="0">--Semua Tujuan--</option>
-                                    <option value="pengaadaan aset baru">Pengadaan Aset Baru</option>
-                                    <option value="pengaduan aset rusak">Pengaduan Aset Rusak</option>
-                                </select>
                             </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Bulan</span>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Bulan</span>
+                                    </div>
+                                    <select class="custom-select" name="month" id="month">
+                                        @foreach (monthNameArray() as $value => $month_name)
+                                            <option value="{{ $value }}"
+                                                {{ $selected_month == $value ? 'selected' : '' }}>
+                                                {{ $month_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <select class="custom-select" name="month" id="month">
-                                    @foreach (monthNameArray() as $value => $month_name)
-                                        <option value="{{ $value }}">
-                                            {{ $month_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
                             </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Tahun</span>
+                            <div class="col-2">
+                                <div class="input-group input-group-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Tahun</span>
+                                    </div>
+                                    <select class="custom-select" name="year" id="year">
+                                        <option value="0">--Semua Tahun--</option>
+                                        @foreach ($years as $key => $year)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <select class="custom-select" name="year" id="year">
-                                    <option value="0">--Semua Tahun--</option>
-                                    @foreach ($years as $key => $value)
-                                        <option value="{{ $key + 1 }}">{{ $value }}</option>
-                                    @endforeach
-                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <button type="submit" id="search_button" name="search_button"
+                                        class="btn btn-primary btn-sm waves-effect waves-light btn">Search</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="input-group">
-                                <button id="search_button" name="search_button"
-                                    class="btn btn-primary btn-sm waves-effect waves-light btn">Search</button>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -21,16 +21,17 @@ class LaporanTransaksi extends Controller
         // get Years based on transaksi updated_at datetime
         if ($transaksi_model->get()->isNotEmpty()) {
             $years = $transaksi_model->getYears();
-            $default_year = $years[0];
+            $selected_year = $years[0];
             // dd($years);
         } else {
             $years = now();
-            $default_year = now();
+            $selected_year = now();
         }
 
-        $default_month = 0;
+        $selected_month = 0;
+        $selected_purpose = 0;
 
-        return view('backend.laporan_transaksi.index', compact('transaksi_data', 'years', 'default_year', 'default_month'));
+        return view('backend.laporan_transaksi.index', compact('transaksi_data', 'years', 'selected_year', 'selected_month', 'selected_purpose'));
     }
 
     /**
@@ -92,5 +93,24 @@ class LaporanTransaksi extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        // dd($request->get('year'));
+        $transaksi_model = new Transaksi();
+        if ($transaksi_model->get()->isEmpty()) {
+            return redirect()->route('laporan_transaksi.index');
+        }
+
+        $years = $transaksi_model->getYears();
+        $selected_trans_purpose = $request->get('tujuan_transaksi');
+        $selected_year = $request->get('year');
+        $selected_month = $request->get('month');
+        $transaksi_data = $transaksi_model->searchTransReport($selected_trans_purpose, $selected_month, $selected_year);
+
+        // dd([$selected_trans_purpose, $selected_month, $selected_year,]);
+        // dd($transaksi_data);
+        return view('backend.laporan_transaksi.index', compact('transaksi_data', 'years', 'selected_year', 'selected_month', 'selected_trans_purpose'));
     }
 }

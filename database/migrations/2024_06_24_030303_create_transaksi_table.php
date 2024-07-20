@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->enum('tujuan_transaksi', ['pengaadaan aset baru', 'pengaduan aset rusak']);
+            $table->enum('tujuan_transaksi', ['pengadaan aset baru', 'pengaduan aset rusak']);
             $table->string('invoice_transaksi')->nullable(true);
             $table->enum('status_transaksi', ['Sedang Proses', 'Selesai', 'Batal'])->default('sedang proses');
 
