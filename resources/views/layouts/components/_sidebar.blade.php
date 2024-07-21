@@ -44,11 +44,27 @@
                 {{ __('Laporan') }}
             </div>
 
-            <!-- Nav Item - About -->
+            <!-- Nav Item - Laporan Transaksi -->
             <li class="nav-item {{ Nav::isRoute('laporan_transaksi.index') }} ">
                 <a class="nav-link" href="{{ route('laporan_transaksi.index') }}">
                     <i class="fas fa-fw fa-hands-helping"></i>
                     <span>{{ __('Laporan Transaksi') }}</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - List Aset -->
+            <li class="nav-item {{ Nav::isRoute('list_aset.index') }} ">
+                <a class="nav-link" href="{{ route('list_aset.index') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('List Aset') }}</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - List Aset Rusak -->
+            <li class="nav-item {{ Nav::isRoute('list_aset_rusak.index') }} ">
+                <a class="nav-link" href="{{ route('list_aset_rusak.index') }}">
+                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <span>{{ __('List Aset Rusak') }}</span>
                 </a>
             </li>
 

@@ -17,8 +17,6 @@
                             <th>Tujuan Transaksi</th>
                             <th>Supplier</th>
                             <th>Surat Pengesahan</th>
-                            {{-- <th>Status Pengesahan</th> --}}
-                            {{-- <th>Status Transaksi</th> --}}
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -33,7 +31,11 @@
                                     <td>{{ $transaksi->user->name }}</td>
                                     <td>{{ $transaksi->tujuan_transaksi }}</td>
                                     <td>{{ $transaksi->supplier->nama_supplier }}</td>
-                                    <td>Download</td>
+                                    <td>
+                                        <a href="{{ asset($transaksi->invoice_transaksi) }}" class="btn btn-info" download>
+                                            Download
+                                        </a>
+                                    </td>
                                     <td class="text-center">
                                         <button type="button" class='btn btn-info show-button' data-toggle="modal"
                                             data-target="#modal-show-pengarsipan-aset" data-id="{{ $transaksi->id }}">

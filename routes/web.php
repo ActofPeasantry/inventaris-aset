@@ -6,7 +6,9 @@ use App\Http\Controllers\AsetController;
 use App\Http\Controllers\AsetRusakController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\KategoriAsetController;
-use App\Http\Controllers\LaporanTransaksi;
+use App\Http\Controllers\ListAsetController;
+use App\Http\Controllers\LaporanTransaksiController;
+use App\Http\Controllers\ListAsetRusakController;
 use App\Http\Controllers\PengajuanAsetController;
 use App\Http\Controllers\PengarsipanTransaksiController;
 use App\Http\Controllers\PengesahanAsetRusakController;
@@ -40,8 +42,10 @@ Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');
 
 Route::middleware('auth')->group(function () {
-    route::resource('laporan_transaksi', LaporanTransaksi::class);
-    Route::post('/laporan_transaksi/search', [LaporanTransaksi::class, 'search'])->name('laporan_transaksi.search');
+    route::resource('laporan_transaksi', LaporanTransaksiController::class);
+    Route::post('/laporan_transaksi/search', [LaporanTransaksiController::class, 'search'])->name('laporan_transaksi.search');
+    route::resource('list_aset', ListAsetController::class);
+    route::resource('list_aset_rusak', ListAsetRusakController::class);
 });
 
 Route::middleware(['auth', 'auth.admin'])->group(function () {
