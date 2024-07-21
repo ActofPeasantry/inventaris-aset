@@ -19,6 +19,12 @@ class Transaksi extends Model
         'tgl_transaksi' => 'date'
     ];
 
+    public function getTransaksiDetail($transaksi_id)
+    {
+        return TransaksiDetail::where('transaksi_id', $transaksi_id)->with('aset')->get();
+    }
+
+
     /**
      * Retrieves the years from the 'updated_at' column in the current model,
      * ordered in descending order, and returns them as an array of unique
