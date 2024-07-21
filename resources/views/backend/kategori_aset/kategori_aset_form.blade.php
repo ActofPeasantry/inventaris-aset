@@ -7,7 +7,7 @@
 <div class="form-group mb-3">
     <label class="form-label" for="tipe_kategori">Tipe kategori</label>
     <select class="form-control" name="tipe_kategori" id="tipe_kategori">
-        <option value="aset tetap">Aset Tetap</option>
-        <option value="aset tidak tetap">Aset Tidak Tetap</option>
+        <option value="aset bergerak">Aset Tetap</option>
+        <option value="aset tidak bergerak">Aset Tidak Tetap</option>
     </select>
 </div>
