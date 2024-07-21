@@ -30,7 +30,7 @@
                 <!-- Nav Item - User -->
                 <li class="nav-item {{ Nav::isRoute('user_role.index') }}">
                     <a class="nav-link" href="{{ route('user_role.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <i class="fas fa-fw fa-wrench"></i>
                         <span>{{ __('Manajemen User') }}</span>
                     </a>
                 </li>
@@ -47,7 +47,7 @@
             <!-- Nav Item - Laporan Transaksi -->
             <li class="nav-item {{ Nav::isRoute('laporan_transaksi.index') }} ">
                 <a class="nav-link" href="{{ route('laporan_transaksi.index') }}">
-                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <i class="fas fa-fw fa-file"></i>
                     <span>{{ __('Laporan Transaksi') }}</span>
                 </a>
             </li>
@@ -55,7 +55,7 @@
             <!-- Nav Item - List Aset -->
             <li class="nav-item {{ Nav::isRoute('list_aset.index') }} ">
                 <a class="nav-link" href="{{ route('list_aset.index') }}">
-                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <i class="fas fa-fw fa-file"></i>
                     <span>{{ __('List Aset') }}</span>
                 </a>
             </li>
@@ -63,7 +63,7 @@
             <!-- Nav Item - List Aset Rusak -->
             <li class="nav-item {{ Nav::isRoute('list_aset_rusak.index') }} ">
                 <a class="nav-link" href="{{ route('list_aset_rusak.index') }}">
-                    <i class="fas fa-fw fa-hands-helping"></i>
+                    <i class="fas fa-fw fa-file"></i>
                     <span>{{ __('List Aset Rusak') }}</span>
                 </a>
             </li>
@@ -80,21 +80,21 @@
                 <!-- Nav Item - Aset -->
                 <li class="nav-item {{ Nav::isRoute('aset.index') }}">
                     <a class="nav-link" href="{{ route('aset.index') }}">
-                        <i class="fas fa-fw fa-user"></i>
+                        <i class="fas fa-fw fa-folder"></i>
                         <span>{{ __('Aset') }}</span>
                     </a>
                 </li>
                 <!-- Nav Item - Kategori Aset -->
                 <li class="nav-item {{ Nav::isRoute('kategori_aset.index') }}">
                     <a class="nav-link" href="{{ route('kategori_aset.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <i class="fas fa-fw fa-folder"></i>
                         <span>{{ __('Kategori Aset') }}</span>
                     </a>
                 </li>
                 <!-- Nav Item - Supplier -->
                 <li class="nav-item {{ Nav::isRoute('supplier.index') }}">
                     <a class="nav-link" href="{{ route('supplier.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <i class="fas fa-fw fa-truck"></i>
                         <span>{{ __('Supplier') }}</span>
                     </a>
                 </li>
@@ -112,7 +112,7 @@
                 <!-- Nav Item - Pengajuan Aset -->
                 <li class="nav-item {{ Nav::isRoute('pengajuan_aset.index') }}">
                     <a class="nav-link" href="{{ route('pengajuan_aset.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <i class="fas fa-fw fa-file-pen"></i>
                         <span>{{ __('Mengajukan Aset Baru') }}</span>
                     </a>
                 </li>
@@ -122,7 +122,7 @@
                 <!-- Nav Item - Review Transaksi -->
                 <li class="nav-item {{ Nav::isRoute('review_transaksi.index') }}">
                     <a class="nav-link" href="{{ route('review_transaksi.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <i class="fas fa-fw fa-magnifying-glass"></i>
                         <span>{{ __('Review Aset') }}</span>
                     </a>
                 </li>
@@ -132,7 +132,7 @@
                 <!-- Nav Item - Pengarsipan Transaksi -->
                 <li class="nav-item {{ Nav::isRoute('pengarsipan_transaksi.index') }}">
                     <a class="nav-link" href="{{ route('pengarsipan_transaksi.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <i class="fas fa-fw fa-cart-plus"></i>
                         <span>{{ __('Pengarsipan Aset') }}</span>
                     </a>
                 </li>
@@ -150,7 +150,7 @@
                 <!-- Nav Item - Pelaporan Aset Rusak -->
                 <li class="nav-item {{ Nav::isRoute('pelaporan_aset_rusak.index') }}">
                     <a class="nav-link" href="{{ route('pelaporan_aset_rusak.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <i class="fas fa-fw fa-file-excel"></i>
                         <span>{{ __('Pelaporan Aset Rusak') }}</span>
                     </a>
                 </li>
@@ -166,7 +166,7 @@
                 <!-- Nav Item - Pengesahan Transaksi -->
                 <li class="nav-item {{ Nav::isRoute('pengesahan_transaksi.index') }}">
                     <a class="nav-link" href="{{ route('pengesahan_transaksi.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <i class="fas fa-fw fa-file-signature"></i>
                         <span>{{ __('Pengesahan Pengadaan Aset') }}</span>
                     </a>
                 </li>
@@ -174,7 +174,7 @@
                 <!-- Nav Item - Pengesahan Transaksi -->
                 <li class="nav-item {{ Nav::isRoute('pengesahan_aset_rusak.index') }}">
                     <a class="nav-link" href="{{ route('pengesahan_aset_rusak.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <i class="fas fa-fw fa-file-signature"></i>
                         <span>{{ __('Pengesahan Aset Rusak') }}</span>
                     </a>
                 </li>
