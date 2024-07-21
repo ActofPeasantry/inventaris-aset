@@ -18,7 +18,7 @@ class RoleSeeder extends Seeder
             'nama_role' => 'Admin',
         ]);
         DB::table('roles')->insert([
-            'nama_role' => 'Kepala Dinas',
+            'nama_role' => 'Kepala Bidang',
         ]);
         DB::table('roles')->insert([
             'nama_role' => 'Pegawai',

@@ -9,6 +9,7 @@ use App\Http\Controllers\KategoriAsetController;
 use App\Http\Controllers\LaporanTransaksi;
 use App\Http\Controllers\PengajuanAsetController;
 use App\Http\Controllers\PengarsipanTransaksiController;
+use App\Http\Controllers\PengesahanAsetRusakController;
 use App\Http\Controllers\PengesahanTransaksiController;
 use App\Http\Controllers\ReviewTransaksiController;
 use App\Http\Controllers\TransaksiController;
@@ -61,6 +62,7 @@ Route::middleware(['auth', 'auth.pegawai'])->group(function () {
 Route::middleware(['auth', 'auth.kepalaDinas'])->group(function () {
     Route::resources([
         'pengesahan_transaksi' => PengesahanTransaksiController::class,
+        'pengesahan_aset_rusak' => PengesahanAsetRusakController::class,
     ]);
 });
 

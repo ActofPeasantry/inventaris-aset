@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(Aset::class);
     }
 
+    public function asetRusak()
+    {
+        return $this->hasMany(AsetRusak::class);
+    }
+
     /**
      * Check if user has a role.
      * @var int

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('tujuan_transaksi', ['pengadaan aset baru', 'pengaduan aset rusak']);
             $table->datetime('tgl_transaksi')->nullable(true);
             $table->string('invoice_transaksi')->nullable(true);
-            $table->enum('status_transaksi', ['Sedang Proses', 'Selesai', 'Batal'])->default('sedang proses');
+            $table->enum('status_transaksi', ['Sedang Proses', 'Selesai', 'Batal'])->default('Sedang Proses');
 
             $table->foreignId('supplier_id')->constrained(table: 'supplier')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

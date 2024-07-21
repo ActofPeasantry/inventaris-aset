@@ -3,8 +3,13 @@
 @section('main-content')
     <h1 class="h3 mb-4 text-gray-800">{{ __('Pelaporan Aset Rusak') }}</h1>
 
+    <button type="button" class="btn btn-primary modal-button mb-3 create-button" data-toggle="modal"
+        data-target="#modal-add-pengajuan">
+        <i class="fa fa-plus"></i> Ajukan Pelaporan</a>
+    </button>
+
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <!-- Project Card Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -15,10 +20,12 @@
                         <thead>
                             <tr>
                                 <th width="8%">Kode Aset</th>
-                                <th>Nama Aset</th>
-                                <th>Kategori Aset</th>
-                                <th width="8%">Jumlah Aset Rusak</th>
-                                <th>Actions</th>
+                                <th width="10%">Nama Aset</th>
+                                <th width="10%">Kategori Aset</th>
+                                <th width="10%">Jumlah Aset Rusak</th>
+                                <th width="10%">Keterangan</th>
+                                <th width="10%">Status Pengesahan</th>
+                                <th width="8%">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,6 +35,8 @@
                                     <td>{{ $aset_rusak->aset->nama_aset }}</td>
                                     <td>{{ $aset_rusak->aset->kategoriAset->nama_kategori }}</td>
                                     <td>{{ $aset_rusak->jumlah_aset_rusak }}</td>
+                                    <td>{{ $aset_rusak->keterangan }}</td>
+                                    <td>{{ $aset_rusak->status_pengesahan }}</td>
                                     <td class="text-center">
                                         <button type="button" class='btn btn-warning edit-button' data-toggle="modal"
                                             data-target="#modal-edit-aset-rusak" data-id="{{ $aset_rusak->id }}">
@@ -53,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-gray">Laporkan Aset Rusak</h6>
@@ -68,8 +77,35 @@
                     </form>
                 </div>
             </div>
+        </div> --}}
+    </div>
+
+
+    {{-- Create Modal --}}
+    <div id="modal-add-pengajuan" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+        aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Pelaporan Aset Rusak</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('pelaporan_aset_rusak.store') }}" method="post">
+                    @csrf
+                    <div class="modal-body">
+                        @include('backend.pelaporan_aset_rusak.aset_rusak_form')
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary"> <i class="fa fa-save"></i> Simpan</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
 
 
     {{-- Edit Modal --}}
@@ -157,6 +193,9 @@
                                 document.querySelector(
                                         '#modal-edit-aset-rusak #old_aset_id').value =
                                     data.aset_id;
+
+                                document.querySelector('#modal-edit-aset-rusak #keterangan')
+                                    .value = data.keterangan;
 
                                 document.querySelector('#aset-rusak-update-form').setAttribute(
                                     'action', '/pelaporan_aset_rusak/' + id);

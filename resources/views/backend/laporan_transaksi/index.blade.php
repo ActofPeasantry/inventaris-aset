@@ -48,7 +48,7 @@
                                         <span class="input-group-text">Tahun</span>
                                     </div>
                                     <select class="custom-select" name="year" id="year">
-                                        <option value="0">--Semua Tahun--</option>
+                                        {{-- <option value="0">--Semua Tahun--</option> --}}
                                         @foreach ($years as $key => $year)
                                             <option value="{{ $year }}">{{ $year }}</option>
                                         @endforeach
@@ -146,7 +146,8 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
-            })
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            }).buttons().container().appendTo('#transaksi_table .col-md-6:eq(0)');
         })
     </script>
 

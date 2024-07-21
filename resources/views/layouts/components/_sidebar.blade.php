@@ -100,14 +100,6 @@
                         <span>{{ __('Mengajukan Aset Baru') }}</span>
                     </a>
                 </li>
-
-                <!-- Nav Item - Pelaporan Aset Rusak -->
-                <li class="nav-item {{ Nav::isRoute('pelaporan_aset_rusak.index') }}">
-                    <a class="nav-link" href="{{ route('pelaporan_aset_rusak.index') }}">
-                        <i class="fas fa-fw fa-hands-helping"></i>
-                        <span>{{ __('Pelaporan Aset Rusak') }}</span>
-                    </a>
-                </li>
             @endcan
 
             @canany(['access-admin', 'access-kepala-dinas'])
@@ -133,22 +125,46 @@
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                {{ __('Kepala Bidang') }}
-            </div>
+
+            @can('access-pegawai')
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    {{ __('Pelaporan Aset') }}
+                </div>
+                <!-- Nav Item - Pelaporan Aset Rusak -->
+                <li class="nav-item {{ Nav::isRoute('pelaporan_aset_rusak.index') }}">
+                    <a class="nav-link" href="{{ route('pelaporan_aset_rusak.index') }}">
+                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <span>{{ __('Pelaporan Aset Rusak') }}</span>
+                    </a>
+                </li>
+                <hr class="sidebar-divider d-none d-md-block">
+            @endcan
+
 
             @can('access-kepala-dinas')
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    {{ __('Kepala Bidang') }}
+                </div>
                 <!-- Nav Item - Pengesahan Transaksi -->
                 <li class="nav-item {{ Nav::isRoute('pengesahan_transaksi.index') }}">
                     <a class="nav-link" href="{{ route('pengesahan_transaksi.index') }}">
                         <i class="fas fa-fw fa-hands-helping"></i>
-                        <span>{{ __('Pengesahan Aset') }}</span>
+                        <span>{{ __('Pengesahan Pengadaan Aset') }}</span>
                     </a>
                 </li>
+
+                <!-- Nav Item - Pengesahan Transaksi -->
+                <li class="nav-item {{ Nav::isRoute('pengesahan_aset_rusak.index') }}">
+                    <a class="nav-link" href="{{ route('pengesahan_aset_rusak.index') }}">
+                        <i class="fas fa-fw fa-hands-helping"></i>
+                        <span>{{ __('Pengesahan Aset Rusak') }}</span>
+                    </a>
+                </li>
+                <hr class="sidebar-divider d-none d-md-block">
             @endcan
 
-            <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">

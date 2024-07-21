@@ -14,5 +14,10 @@
         autocomplete="jumlah_aset_rusak">
 </div>
 
+<div class="form-group col-mb-3">
+    <label class="form-label" for="keterangan">Keterangan</label>
+    <textarea class="form-control" name="keterangan" id="keterangan" cols="15" rows="3" required></textarea>
+</div>
+
 <input type="hidden" id="old_jumlah_aset_rusak" name="old_jumlah_aset_rusak" value="">
 <input type="hidden" id="old_aset_id" name="old_aset_id" value="">

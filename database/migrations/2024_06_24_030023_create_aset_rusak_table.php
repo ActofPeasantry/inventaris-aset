@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('aset_rusak', function (Blueprint $table) {
             $table->id();
             $table->integer('jumlah_aset_rusak');
+            $table->string('keterangan');
+            $table->enum('status_pengesahan', ['Diajukan', 'Disetujui', 'Ditolak', 'Revisi', 'Telah Direvisi'])
+                ->default('Diajukan');
 
             $table->foreignId('aset_id')->constrained(table: 'aset')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained(table: 'users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

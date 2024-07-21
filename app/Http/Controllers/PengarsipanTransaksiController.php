@@ -49,6 +49,12 @@ class PengarsipanTransaksiController extends Controller
                 $getTransaksi->tgl_transaksi = $request->tgl_transaksi;
                 $getTransaksi->status_transaksi = 'Selesai';
                 $getTransaksi->save();
+                $getDetails = TransaksiDetail::where('transaksi_id', $getTransaksi->id)->get();
+                foreach ($getDetails as $getDetail) {
+                    $aset = Aset::find($getDetail->aset_id);
+                    $aset->jumlah_aset = $aset->jumlah_aset + $getDetail->jumlah;
+                    $aset->save();
+                }
             }
         }
 
